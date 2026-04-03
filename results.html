@@ -1,200 +1,1455 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Survey Results – Samvidhan</title>
-<script src="https://cdn.tailwindcss.com"></script>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Rajdhani:wght@400;500;600;700&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet"/>
 <style>
-:root{--saffron:#FF9933;--green:#138808;--navy:#002147;--gold:#C9A84C;--cream:#FDF8F0;}
-body{font-family:'Inter',sans-serif;background:var(--cream);overflow-x:hidden;}
-.font-display{font-family:'Playfair Display',serif;}
-.tricolor{height:6px;background:linear-gradient(to right,var(--saffron) 33.33%,white 33.33%,white 66.66%,var(--green) 66.66%);}
-nav{background:rgba(0,33,71,.97);}
-.response-card{background:white;border-radius:1.25rem;overflow:hidden;box-shadow:0 2px 16px rgba(0,0,0,.07);transition:all .3s;}
-.response-card:hover{box-shadow:0 8px 32px rgba(0,33,71,.1);}
-.badge{display:inline-block;padding:.25rem .75rem;border-radius:999px;font-size:.75rem;font-weight:600;}
-.fade-in{opacity:0;transform:translateY(30px);transition:all .6s;}
-.fade-in.visible{opacity:1;transform:translateY(0);}
-.mobile-menu{max-height:0;overflow:hidden;transition:max-height .4s ease;}
-.mobile-menu.open{max-height:600px;}
+/* ── CSS Variables ───────────────────────────────────────────────── */
+:root{
+  --saffron:#FF9933;
+  --saffron-light:#FFB366;
+  --green:#138808;
+  --green-light:#1aad0a;
+  --navy:#002147;
+  --navy-mid:#0a3870;
+  --gold:#C9A84C;
+  --gold-light:#e0be72;
+  --cream:#FDF8F0;
+  --cream-dark:#F5EDD8;
+  --red-seal:#C0392B;
+  --paper:#F9F4E8;
+  --paper-dark:#EDE3C8;
+  --ink:#1a1208;
+}
+
+*{box-sizing:border-box;margin:0;padding:0;}
+
+body{
+  font-family:'Rajdhani',sans-serif;
+  background:var(--cream);
+  overflow-x:hidden;
+  cursor:default;
+}
+
+/* ── Tricolor Bar ────────────────────────────────────────────────── */
+.tricolor{
+  height:6px;
+  background:linear-gradient(to right,
+    var(--saffron) 33.33%,
+    white 33.33%,white 66.66%,
+    var(--green) 66.66%);
+}
+
+/* ── Nav ─────────────────────────────────────────────────────────── */
+nav{
+  background:rgba(0,33,71,.97);
+  backdrop-filter:blur(12px);
+  position:sticky;top:0;z-index:900;
+  padding:1rem 2rem;
+}
+.nav-inner{
+  max-width:1200px;margin:0 auto;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.nav-logo{
+  font-family:'Playfair Display',serif;
+  color:white;font-size:1.35rem;font-weight:900;
+  text-decoration:none;letter-spacing:-.5px;
+  display:inline-flex;align-items:center;gap:.5rem;
+}
+.flag-icon{width:24px;height:16px;border-radius:2px;object-fit:cover;vertical-align:middle;display:inline-block;}
+.nav-links a{
+  color:rgba(255,255,255,.75);font-size:.85rem;
+  text-decoration:none;margin-left:1.75rem;
+  font-weight:600;letter-spacing:.5px;
+  transition:color .2s;
+}
+.nav-links a:hover{color:var(--gold);}
+.nav-links a.active{color:var(--saffron);}
+
+/* ── Hero ────────────────────────────────────────────────────────── */
+.hero{
+  background:linear-gradient(135deg,var(--navy) 0%,#0a4a8a 60%,#1a5a9a 100%);
+  padding:5rem 2rem 4rem;text-align:center;color:white;
+  position:relative;overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Ccircle cx='30' cy='30' r='1.5'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+.hero-eyebrow{
+  display:inline-block;font-size:.7rem;letter-spacing:3px;
+  color:var(--gold);text-transform:uppercase;margin-bottom:1rem;
+  border:1px solid var(--gold);padding:.3rem 1rem;border-radius:2px;
+}
+.hero h1{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(2.5rem,6vw,4.5rem);font-weight:900;
+  line-height:1.1;margin-bottom:1rem;
+}
+.hero h1 span{color:var(--saffron);}
+.hero p{color:rgba(255,255,255,.6);font-size:1rem;max-width:520px;margin:0 auto;}
+
+/* ── Stats Row ───────────────────────────────────────────────────── */
+.stats-row{
+  max-width:1200px;margin:-2rem auto 0;
+  display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;
+  padding:0 2rem;position:relative;z-index:10;
+}
+.stat-card{
+  background:white;border-radius:1rem;padding:1.5rem;text-align:center;
+  box-shadow:0 4px 24px rgba(0,0,0,.1);
+  border-top:4px solid transparent;
+}
+.stat-card:nth-child(1){border-color:var(--saffron);}
+.stat-card:nth-child(2){border-color:var(--green);}
+.stat-card:nth-child(3){border-color:var(--navy);}
+.stat-card:nth-child(4){border-color:var(--gold);}
+.stat-num{
+  font-family:'Playfair Display',serif;
+  font-size:2.75rem;font-weight:900;line-height:1;
+}
+.stat-card:nth-child(1) .stat-num{color:var(--saffron);}
+.stat-card:nth-child(2) .stat-num{color:var(--green);}
+.stat-card:nth-child(3) .stat-num{color:var(--navy);}
+.stat-card:nth-child(4) .stat-num{color:var(--gold);}
+.stat-label{font-size:.78rem;color:#888;letter-spacing:.5px;margin-top:.35rem;font-weight:600;text-transform:uppercase;}
+
+/* ── Main Content ────────────────────────────────────────────────── */
+.main{max-width:1200px;margin:0 auto;padding:4rem 2rem 6rem;}
+
+.section-header{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:2.5rem;flex-wrap:wrap;gap:1rem;
+}
+.section-title{
+  font-family:'Playfair Display',serif;
+  font-size:2rem;font-weight:700;color:var(--navy);
+}
+.section-title span{
+  border-bottom:3px solid var(--gold);padding-bottom:2px;
+}
+
+/* ── Person Cards ────────────────────────────────────────────────── */
+.cards-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(340px,1fr));
+  gap:1.5rem;
+  margin-bottom:5rem;
+}
+
+.person-card{
+  background:white;border-radius:1.25rem;overflow:hidden;
+  box-shadow:0 2px 16px rgba(0,0,0,.06);
+  cursor:pointer;transition:all .35s cubic-bezier(.4,0,.2,1);
+  border:1px solid rgba(0,0,0,.05);
+  position:relative;
+}
+.person-card::after{
+  content:'VIEW DOSSIER →';
+  position:absolute;bottom:1.25rem;right:1.25rem;
+  font-size:.65rem;letter-spacing:2px;font-weight:700;
+  color:var(--gold);opacity:0;transition:opacity .3s;
+}
+.person-card:hover{
+  transform:translateY(-6px);
+  box-shadow:0 16px 40px rgba(0,33,71,.14);
+}
+.person-card:hover::after{opacity:1;}
+
+.card-stripe{
+  height:5px;
+  background:linear-gradient(90deg,var(--saffron),var(--gold),var(--green));
+}
+.card-body{padding:1.5rem;}
+
+.card-avatar{
+  width:52px;height:52px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;
+  color:white;margin-bottom:1rem;flex-shrink:0;
+}
+.card-top{display:flex;align-items:flex-start;gap:1rem;margin-bottom:1.25rem;}
+.card-info h3{
+  font-family:'Playfair Display',serif;
+  font-size:1.2rem;font-weight:700;color:var(--navy);
+  line-height:1.2;
+}
+.card-info p{font-size:.8rem;color:#888;margin-top:.2rem;}
+
+.card-pills{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:1rem;}
+.pill{
+  padding:.25rem .6rem;border-radius:4px;
+  font-size:.68rem;font-weight:700;letter-spacing:.5px;text-transform:uppercase;
+}
+.pill-saffron{background:#FF993322;color:#cc6600;}
+.pill-green{background:#13880822;color:#0a5c05;}
+.pill-navy{background:#00214722;color:var(--navy);}
+.pill-gold{background:#C9A84C22;color:#8a6a20;}
+.pill-gray{background:#f0f0f0;color:#666;}
+
+.card-meta{
+  display:grid;grid-template-columns:1fr 1fr;gap:.5rem;
+  padding-top:1rem;border-top:1px solid #f0f0f0;
+}
+.card-meta-item{
+  display:flex;flex-direction:column;
+}
+.meta-label{font-size:.65rem;letter-spacing:1px;color:#bbb;text-transform:uppercase;font-weight:600;}
+.meta-value{font-size:.85rem;color:var(--navy);font-weight:600;margin-top:.15rem;}
+
+.dossier-btn{
+  position:absolute;top:1.25rem;right:1.25rem;
+  width:32px;height:32px;border-radius:50%;
+  background:var(--gold);
+  display:flex;align-items:center;justify-content:center;
+  color:white;font-size:1rem;opacity:0;transition:opacity .3s;
+}
+.person-card:hover .dossier-btn{opacity:1;}
+
+/* ── Empty State ─────────────────────────────────────────────────── */
+.empty-state{
+  text-align:center;padding:5rem 2rem;
+  display:none;
+}
+.empty-state.visible{display:block;}
+
+/* ── Dossier Modal Overlay ───────────────────────────────────────── */
+.dossier-overlay{
+  position:fixed;inset:0;z-index:1000;
+  background:rgba(0,10,30,.82);
+  backdrop-filter:blur(8px);
+  display:flex;align-items:center;justify-content:center;
+  padding:1.5rem;
+  opacity:0;pointer-events:none;transition:opacity .4s;
+}
+.dossier-overlay.active{
+  opacity:1;pointer-events:all;
+}
+
+/* ── Book / Dossier ──────────────────────────────────────────────── */
+.dossier-book{
+  width:min(820px,100%);
+  max-height:90vh;
+  position:relative;
+  perspective:2000px;
+}
+
+.page-container{
+  position:relative;
+  width:100%;
+  height:min(640px,85vh);
+}
+
+/* Pages stack */
+.dossier-page{
+  position:absolute;inset:0;
+  background:var(--paper);
+  border-radius:.5rem;
+  overflow:hidden;
+  box-shadow:0 20px 60px rgba(0,0,0,.4),
+             0 0 0 1px rgba(0,0,0,.08);
+  display:none;
+  flex-direction:column;
+  transition:none;
+}
+.dossier-page.current{display:flex;}
+
+/* Page turn animation */
+.dossier-page.turning-out{
+  display:flex;
+  transform-origin:right bottom;
+  animation:pageFlipOut .6s cubic-bezier(.4,0,.2,1) forwards;
+}
+.dossier-page.turning-in{
+  display:flex;
+  transform-origin:right bottom;
+  animation:pageFlipIn .6s cubic-bezier(.4,0,.2,1) forwards;
+}
+.dossier-page.turning-back-out{
+  display:flex;
+  transform-origin:left bottom;
+  animation:pageFlipBackOut .6s cubic-bezier(.4,0,.2,1) forwards;
+}
+.dossier-page.turning-back-in{
+  display:flex;
+  transform-origin:left bottom;
+  animation:pageFlipBackIn .6s cubic-bezier(.4,0,.2,1) forwards;
+}
+
+@keyframes pageFlipOut{
+  0%{transform:rotateY(0deg) scale(1);opacity:1;}
+  50%{transform:rotateY(-90deg) scale(.9);opacity:.3;}
+  100%{transform:rotateY(-180deg) scale(.8);opacity:0;}
+}
+@keyframes pageFlipIn{
+  0%{transform:rotateY(180deg) scale(.8);opacity:0;}
+  50%{transform:rotateY(90deg) scale(.9);opacity:.3;}
+  100%{transform:rotateY(0deg) scale(1);opacity:1;}
+}
+@keyframes pageFlipBackOut{
+  0%{transform:rotateY(0deg) scale(1);opacity:1;}
+  50%{transform:rotateY(90deg) scale(.9);opacity:.3;}
+  100%{transform:rotateY(180deg) scale(.8);opacity:0;}
+}
+@keyframes pageFlipBackIn{
+  0%{transform:rotateY(-180deg) scale(.8);opacity:0;}
+  50%{transform:rotateY(-90deg) scale(.9);opacity:.3;}
+  100%{transform:rotateY(0deg) scale(1);opacity:1;}
+}
+
+/* Page fold hint (bottom-right corner) */
+.page-fold{
+  position:absolute;bottom:0;right:0;
+  width:56px;height:56px;
+  cursor:pointer;z-index:20;
+  transition:all .25s;
+}
+.page-fold::before{
+  content:'';position:absolute;
+  bottom:0;right:0;
+  width:0;height:0;
+  border-style:solid;
+  border-width:0 0 56px 56px;
+  border-color:transparent transparent var(--gold) transparent;
+  transition:border-width .25s;
+}
+.page-fold::after{
+  content:'▶';position:absolute;
+  bottom:8px;right:8px;
+  font-size:.7rem;color:white;
+  transition:opacity .25s;
+}
+.page-fold:hover::before{border-width:0 0 70px 70px;}
+
+.page-fold-back{
+  position:absolute;bottom:0;left:0;
+  width:56px;height:56px;
+  cursor:pointer;z-index:20;
+  transition:all .25s;
+  display:none;
+}
+.page-fold-back::before{
+  content:'';position:absolute;
+  bottom:0;left:0;
+  width:0;height:0;
+  border-style:solid;
+  border-width:0 56px 56px 0;
+  border-color:transparent var(--navy-mid) transparent transparent;
+  transition:border-width .25s;
+}
+.page-fold-back::after{
+  content:'◀';position:absolute;
+  bottom:8px;left:8px;
+  font-size:.7rem;color:white;
+  transition:opacity .25s;
+}
+.page-fold-back:hover::before{border-width:0 70px 70px 0;}
+
+/* ── Dossier Page Innards ────────────────────────────────────────── */
+.page-scroll{
+  flex:1;overflow-y:auto;overflow-x:hidden;
+  scrollbar-width:thin;scrollbar-color:var(--gold) transparent;
+}
+.page-scroll::-webkit-scrollbar{width:4px;}
+.page-scroll::-webkit-scrollbar-thumb{background:var(--gold);border-radius:2px;}
+
+/* Page header band */
+.dossier-header-band{
+  background:var(--navy);
+  color:white;padding:.75rem 2rem;
+  display:flex;align-items:center;justify-content:space-between;
+  flex-shrink:0;
+}
+.dossier-header-band .dh-title{
+  font-family:'Rajdhani',sans-serif;
+  font-size:.75rem;letter-spacing:2.5px;font-weight:700;
+  text-transform:uppercase;color:var(--gold);
+}
+.dossier-header-band .dh-ref{
+  font-family:'DM Mono',monospace;
+  font-size:.65rem;color:rgba(255,255,255,.5);
+}
+
+/* Page footer */
+.page-footer{
+  background:var(--paper-dark);
+  padding:.6rem 2rem;
+  display:flex;align-items:center;justify-content:space-between;
+  border-top:1px solid rgba(0,0,0,.07);
+  flex-shrink:0;
+}
+.pf-left{font-size:.65rem;color:#aaa;letter-spacing:.5px;font-family:'DM Mono',monospace;}
+.pf-center{font-size:.7rem;color:var(--navy);font-weight:700;letter-spacing:1px;}
+.pf-right{font-size:.65rem;color:#aaa;letter-spacing:.5px;font-family:'DM Mono',monospace;}
+
+/* Page content area */
+.page-content{padding:2rem 2.5rem;}
+
+/* Cover page specific */
+.cover-seal{
+  width:120px;height:120px;border-radius:50%;
+  border:3px solid var(--gold);
+  background:var(--navy);
+  display:flex;align-items:center;justify-content:center;
+  font-size:3rem;
+  margin:0 auto 1.5rem;
+  box-shadow:0 0 0 6px var(--paper-dark),0 0 0 8px var(--gold);
+}
+.cover-classified{
+  display:inline-block;
+  border:2.5px solid var(--red-seal);
+  color:var(--red-seal);
+  font-family:'Rajdhani',sans-serif;
+  font-size:.9rem;letter-spacing:4px;font-weight:700;
+  padding:.3rem 1.5rem;
+  transform:rotate(-3deg);
+  margin-bottom:1rem;
+}
+.cover-title{
+  font-family:'Playfair Display',serif;
+  font-size:2.2rem;font-weight:900;color:var(--navy);
+  line-height:1.2;text-align:center;
+  margin-bottom:.5rem;
+}
+.cover-subtitle{
+  font-family:'Crimson Pro',serif;
+  font-size:1rem;color:#666;text-align:center;
+  margin-bottom:2rem;
+  font-style:italic;
+}
+.cover-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:1rem;
+  border:1px solid var(--paper-dark);
+  background:var(--paper-dark);padding:1.25rem;
+  border-radius:.5rem;margin-bottom:1.5rem;
+}
+.cover-field label{
+  font-size:.62rem;letter-spacing:1.5px;text-transform:uppercase;
+  color:#999;font-weight:700;display:block;margin-bottom:.2rem;
+}
+.cover-field span{
+  font-size:.95rem;font-weight:700;color:var(--navy);
+  font-family:'Rajdhani',sans-serif;
+}
+.cover-stamp{
+  border:2.5px solid var(--green);
+  color:var(--green);
+  font-size:.7rem;letter-spacing:3px;font-weight:700;
+  padding:.3rem 1rem;display:inline-block;
+  transform:rotate(5deg);margin-left:2rem;
+}
+
+/* Section styles inside pages */
+.dos-section{margin-bottom:1.75rem;}
+.dos-section-title{
+  font-family:'Rajdhani',sans-serif;
+  font-size:.7rem;letter-spacing:3px;text-transform:uppercase;
+  font-weight:700;color:var(--gold);
+  border-bottom:1px solid var(--paper-dark);
+  padding-bottom:.4rem;margin-bottom:1rem;
+  display:flex;align-items:center;gap:.5rem;
+}
+.dos-section-title::before{
+  content:'';width:12px;height:3px;background:var(--saffron);
+  border-radius:2px;flex-shrink:0;
+}
+
+.dos-row{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:.6rem .75rem;margin-bottom:.75rem;
+}
+.dos-field{
+  background:white;border:1px solid var(--paper-dark);
+  border-radius:.35rem;padding:.6rem .75rem;
+}
+.dos-field label{
+  font-size:.6rem;letter-spacing:1.2px;text-transform:uppercase;
+  color:#bbb;font-weight:700;display:block;margin-bottom:.2rem;
+}
+.dos-field span{
+  font-size:.88rem;font-weight:600;color:var(--ink);
+  font-family:'Crimson Pro',serif;
+}
+.dos-field.full{grid-column:1/-1;}
+.dos-field.verdict{
+  background:var(--navy);border-color:var(--navy);
+}
+.dos-field.verdict label{color:var(--gold);}
+.dos-field.verdict span{color:white;}
+
+.score-bar-wrap{margin-top:.25rem;}
+.score-bar{
+  height:6px;border-radius:3px;background:var(--paper-dark);overflow:hidden;margin-top:.3rem;
+}
+.score-bar-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--saffron),var(--gold));}
+
+.badge-row{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.4rem;}
+.dos-badge{
+  padding:.2rem .55rem;border-radius:3px;
+  font-size:.65rem;font-weight:700;letter-spacing:.5px;text-transform:uppercase;
+}
+
+/* Analysis page */
+.analysis-block{
+  background:white;border-radius:.5rem;
+  border-left:4px solid var(--saffron);
+  padding:1rem 1.25rem;margin-bottom:1rem;
+}
+.analysis-block.green{border-left-color:var(--green);}
+.analysis-block.navy{border-left-color:var(--navy);}
+.analysis-block.gold{border-left-color:var(--gold);}
+.analysis-label{
+  font-size:.62rem;letter-spacing:1.5px;text-transform:uppercase;
+  color:#aaa;font-weight:700;margin-bottom:.4rem;
+}
+.analysis-text{
+  font-family:'Crimson Pro',serif;
+  font-size:.95rem;color:var(--ink);line-height:1.6;
+}
+
+.radar-wrap{display:flex;justify-content:center;margin:1rem 0;}
+
+/* ── Close button ────────────────────────────────────────────────── */
+.dossier-close{
+  position:absolute;top:-1rem;right:-1rem;
+  width:36px;height:36px;border-radius:50%;
+  background:var(--red-seal);color:white;
+  border:none;cursor:pointer;font-size:1.1rem;
+  display:flex;align-items:center;justify-content:center;
+  z-index:30;box-shadow:0 4px 12px rgba(0,0,0,.3);
+  transition:transform .2s;
+}
+.dossier-close:hover{transform:scale(1.1);}
+
+/* ── Nav Buttons ─────────────────────────────────────────────────── */
+.nav-buttons{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-top:.75rem;padding:0 .25rem;
+}
+.nav-btn{
+  background:var(--navy);color:white;border:none;
+  padding:.5rem 1.25rem;border-radius:.35rem;
+  font-family:'Rajdhani',sans-serif;font-weight:700;
+  font-size:.8rem;letter-spacing:1px;cursor:pointer;
+  transition:background .2s;
+}
+.nav-btn:hover{background:var(--navy-mid);}
+.nav-btn:disabled{opacity:.35;cursor:default;}
+.page-counter{
+  font-family:'DM Mono',monospace;
+  font-size:.75rem;color:rgba(255,255,255,.6);
+}
+
+/* ── Overall Report Section ──────────────────────────────────────── */
+.overall-section{
+  margin-top:5rem;
+  padding-top:3rem;
+  border-top:2px solid var(--paper-dark);
+}
+.overall-title{
+  font-family:'Playfair Display',serif;
+  font-size:2.2rem;font-weight:900;color:var(--navy);
+  text-align:center;margin-bottom:.5rem;
+}
+.overall-subtitle{
+  text-align:center;color:#888;font-size:.9rem;margin-bottom:3rem;
+  font-family:'Crimson Pro',serif;font-style:italic;
+}
+
+.overall-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;
+  margin-bottom:2.5rem;
+}
+.ov-card{
+  background:white;border-radius:1rem;padding:1.5rem;
+  box-shadow:0 2px 16px rgba(0,0,0,.06);
+}
+.ov-card h4{
+  font-family:'Playfair Display',serif;
+  font-size:1rem;font-weight:700;color:var(--navy);
+  margin-bottom:1rem;padding-bottom:.5rem;
+  border-bottom:2px solid var(--gold);
+}
+
+.bar-chart-item{margin-bottom:.6rem;}
+.bar-label{display:flex;justify-content:space-between;margin-bottom:.2rem;}
+.bar-label span:first-child{font-size:.78rem;color:var(--ink);font-weight:600;}
+.bar-label span:last-child{font-size:.72rem;color:#aaa;font-family:'DM Mono',monospace;}
+.bar-track{height:8px;background:#f0f0f0;border-radius:4px;overflow:hidden;}
+.bar-fill{height:100%;border-radius:4px;transition:width 1s cubic-bezier(.4,0,.2,1);}
+
+.insight-card{
+  background:linear-gradient(135deg,var(--navy),var(--navy-mid));
+  border-radius:1rem;padding:2rem;color:white;
+  grid-column:1/-1;
+  display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;
+}
+.insight-item h5{
+  font-size:.65rem;letter-spacing:2px;text-transform:uppercase;
+  color:var(--gold);margin-bottom:.5rem;font-weight:700;
+}
+.insight-item p{
+  font-family:'Crimson Pro',serif;
+  font-size:.9rem;line-height:1.5;color:rgba(255,255,255,.8);
+}
+
+/* ── Add Response Button ─────────────────────────────────────────── */
+.add-btn{
+  display:inline-flex;align-items:center;gap:.5rem;
+  padding:.6rem 1.25rem;border-radius:.5rem;
+  background:var(--saffron);color:white;
+  font-family:'Rajdhani',sans-serif;font-weight:700;
+  font-size:.85rem;letter-spacing:.5px;
+  text-decoration:none;transition:background .2s;
+}
+.add-btn:hover{background:#e68520;}
+.clear-btn{
+  display:inline-flex;align-items:center;gap:.5rem;
+  padding:.6rem 1.25rem;border-radius:.5rem;
+  background:transparent;color:#e05050;
+  font-family:'Rajdhani',sans-serif;font-weight:700;
+  font-size:.85rem;letter-spacing:.5px;
+  border:2px solid #f5cccc;cursor:pointer;transition:all .2s;
+}
+.clear-btn:hover{background:#fff0f0;}
+
+/* ── Footer ──────────────────────────────────────────────────────── */
+footer{
+  background:var(--navy);color:white;
+  text-align:center;padding:2.5rem;
+}
+footer .f-logo{
+  font-family:'Playfair Display',serif;
+  font-size:1.3rem;font-weight:700;color:var(--gold);
+  display:block;margin-bottom:.5rem;
+}
+footer p{font-size:.75rem;color:rgba(255,255,255,.35);}
+
+/* ── Responsive ──────────────────────────────────────────────────── */
+@media(max-width:768px){
+  .stats-row{grid-template-columns:repeat(2,1fr);}
+  .overall-grid{grid-template-columns:1fr;}
+  .insight-card{grid-template-columns:1fr;}
+  .dos-row{grid-template-columns:1fr;}
+  .cover-grid{grid-template-columns:1fr;}
+  .dossier-book{width:100%;}
+  .page-content{padding:1.25rem;}
+}
+
+/* ── Fade-in scroll animation ────────────────────────────────────── */
+.fadein{opacity:0;transform:translateY(24px);transition:all .6s ease;}
+.fadein.vis{opacity:1;transform:none;}
 </style>
 </head>
 <body>
+
 <div class="tricolor"></div>
-<nav class="sticky top-0 z-50 px-6 py-4">
-  <div class="max-w-7xl mx-auto flex items-center justify-between">
-    <a href="index.html" class="font-display text-white text-xl font-bold">🇮🇳 Samvidhan</a>
-    <div class="hidden lg:flex gap-6 text-white text-sm">
-      <a href="index.html" class="hover:text-yellow-300">Home</a>
-      <a href="survey.html" class="hover:text-yellow-300">Survey</a>
-      <a href="results.html" class="text-yellow-300">Results</a>
-      <a href="quiz.html" class="hover:text-yellow-300">Quiz</a>
-      <a href="helpline.html" class="hover:text-yellow-300">Helpline</a>
-    </div>
-    <button id="hamburger" class="lg:hidden text-white p-2">☰</button>
-  </div>
-  <div id="mobileMenu" class="mobile-menu lg:hidden">
-    <div class="max-w-7xl mx-auto px-6 pb-4 flex flex-col gap-3 text-white text-sm mt-4">
-      <a href="index.html" class="py-2 border-b border-white border-opacity-20">Home</a>
-      <a href="survey.html" class="py-2 border-b border-white border-opacity-20">Survey</a>
-      <a href="results.html" class="py-2">Results</a>
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo"><img src="assets/icons/india-flag.svg" alt="Indian flag" class="flag-icon"/><span>Samvidhan</span></a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="survey.html">Survey</a>
+      <a href="results.html" class="active">Results</a>
+      <a href="quiz.html">Quiz</a>
+      <a href="helpline.html">Helpline</a>
     </div>
   </div>
 </nav>
 
-<section style="background:linear-gradient(135deg,var(--navy),#0a4a8a)" class="py-20 px-6 text-center text-white">
-  <div class="max-w-3xl mx-auto fade-in visible">
-    <p class="text-xs uppercase tracking-widest mb-4" style="color:var(--gold)">Survey Dashboard</p>
-    <h1 class="font-display text-5xl font-black mb-4">Response <span style="color:var(--saffron)">Results</span></h1>
-    <p class="text-gray-300 max-w-xl mx-auto">All submitted survey responses — a snapshot of constitutional awareness in India.</p>
+<!-- Hero -->
+<section class="hero">
+  <div>
+    <div class="hero-eyebrow">Survey Dashboard</div>
+    <h1>Response <span>Results</span></h1>
+    <p>Every voice, documented — a living record of constitutional awareness across India.</p>
   </div>
 </section>
 
-<div class="max-w-6xl mx-auto px-6 py-16">
-
-  <!-- Stats Row -->
-  <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12 fade-in" id="statsRow">
-    <div class="bg-white rounded-2xl p-6 text-center shadow-sm">
-      <div class="font-display text-4xl font-black mb-2" id="totalCount" style="color:var(--saffron)">0</div>
-      <p class="text-sm text-gray-500">Total Responses</p>
-    </div>
-    <div class="bg-white rounded-2xl p-6 text-center shadow-sm">
-      <div class="font-display text-3xl font-black mb-2" id="awarenessTop" style="color:var(--green)">—</div>
-      <p class="text-sm text-gray-500">Top Awareness Level</p>
-    </div>
-    <div class="bg-white rounded-2xl p-6 text-center shadow-sm">
-      <div class="font-display text-3xl font-black mb-2" id="rightsTop" style="color:var(--navy)">—</div>
-      <p class="text-sm text-gray-500">Rights Knowledge</p>
-    </div>
-    <div class="bg-white rounded-2xl p-6 text-center shadow-sm">
-      <div class="font-display text-3xl font-black mb-2" id="hasAudio" style="color:var(--gold)">0</div>
-      <p class="text-sm text-gray-500">Audio Responses</p>
-    </div>
+<!-- Stats Row -->
+<div class="stats-row" id="statsRow">
+  <div class="stat-card fadein">
+    <div class="stat-num" id="sc-total">0</div>
+    <div class="stat-label">Total Responses</div>
   </div>
-
-  <!-- Controls -->
-  <div class="flex flex-wrap items-center justify-between gap-4 mb-6 fade-in">
-    <h2 class="font-display text-3xl font-bold" style="color:var(--navy)">Individual <span style="border-bottom:3px solid var(--gold);padding-bottom:3px">Responses</span></h2>
-    <div class="flex gap-3">
-      <button onclick="clearAll()" class="px-4 py-2 rounded-xl border-2 text-sm font-medium text-red-500 border-red-200 hover:bg-red-50 transition">🗑️ Clear All</button>
-      <a href="survey.html" class="px-4 py-2 rounded-xl text-white text-sm font-medium" style="background:var(--saffron)">+ Add Response</a>
-    </div>
+  <div class="stat-card fadein">
+    <div class="stat-num" id="sc-cities">0</div>
+    <div class="stat-label">Cities Represented</div>
   </div>
-
-  <!-- Results Grid -->
-  <div id="resultsGrid" class="grid grid-cols-1 md:grid-cols-2 gap-5"></div>
-
-  <!-- Empty state -->
-  <div id="emptyState" class="hidden text-center py-20">
-    <div class="text-6xl mb-6">📭</div>
-    <h3 class="font-display text-2xl font-bold mb-3" style="color:var(--navy)">No Responses Yet</h3>
-    <p class="text-gray-500 mb-6">Be the first to share your opinion about constitutional awareness!</p>
-    <a href="survey.html" class="px-8 py-3 rounded-xl text-white font-semibold" style="background:var(--saffron)">Take the Survey →</a>
+  <div class="stat-card fadein">
+    <div class="stat-num" id="sc-colleges">0</div>
+    <div class="stat-label">Colleges</div>
   </div>
-
+  <div class="stat-card fadein">
+    <div class="stat-num" id="sc-awareness">—</div>
+    <div class="stat-label">Avg. Awareness Score</div>
+  </div>
 </div>
 
-<footer style="background:var(--navy)" class="text-white py-10 px-6 text-center">
-  <div class="tricolor mb-6"></div>
-  <a href="index.html" class="font-display text-xl font-bold" style="color:var(--gold)">Samvidhan</a>
-  <p class="text-xs text-gray-500 mt-2">© 2024 Samvidhan 🇮🇳 | Survey data stored locally in your browser</p>
+<!-- Main -->
+<div class="main">
+
+  <!-- Cards Section -->
+  <div class="section-header fadein">
+    <h2 class="section-title">Individual <span>Respondents</span></h2>
+    <div style="display:flex;gap:.75rem;flex-wrap:wrap;">
+      <button class="clear-btn" onclick="clearAll()">🗑 Clear All</button>
+      <a href="survey.html" class="add-btn">+ Add Response</a>
+    </div>
+  </div>
+
+  <div id="cardsGrid" class="cards-grid"></div>
+
+  <div id="emptyState" class="empty-state">
+    <div style="font-size:4rem;margin-bottom:1rem;">📭</div>
+    <h3 style="font-family:'Playfair Display',serif;font-size:1.75rem;color:var(--navy);margin-bottom:.75rem;">No Responses Yet</h3>
+    <p style="color:#888;margin-bottom:2rem;">Be the first to contribute to this constitutional survey!</p>
+    <a href="survey.html" class="add-btn">Take the Survey →</a>
+  </div>
+
+  <!-- Overall Report -->
+  <div class="overall-section fadein" id="overallSection" style="display:none;">
+    <div class="hero-eyebrow" style="display:block;text-align:center;margin-bottom:.75rem;">Aggregate Analysis</div>
+    <h2 class="overall-title">Overall Survey <span style="color:var(--saffron)">Report</span></h2>
+    <p class="overall-subtitle">Compiled findings from all submitted survey responses — constitutional awareness across respondents.</p>
+
+    <div class="overall-grid" id="overallGrid"></div>
+  </div>
+
+</div><!-- /main -->
+
+<!-- Dossier Modal -->
+<div class="dossier-overlay" id="dossierOverlay">
+  <div class="dossier-book" id="dossierBook">
+    <button class="dossier-close" onclick="closeDossier()">✕</button>
+
+    <div class="page-container" id="pageContainer">
+      <!-- Pages rendered by JS -->
+    </div>
+
+    <div class="nav-buttons">
+      <button class="nav-btn" id="prevBtn" onclick="changePage(-1)" disabled>◀ PREV</button>
+      <span class="page-counter" id="pageCounter">1 / 1</span>
+      <button class="nav-btn" id="nextBtn" onclick="changePage(1)">NEXT ▶</button>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="tricolor" style="margin-bottom:1.5rem;"></div>
+  <span class="f-logo">Samvidhan</span>
+  <p>© 2026 Samvidhan <img src="assets/icons/india-flag.svg" alt="Indian flag" class="flag-icon" style="margin:0 .25rem;vertical-align:-2px;"/> | Survey data stored locally in your browser</p>
 </footer>
 
 <script>
-function awareBadgeColor(val){
-  if(val==='Very aware') return '#16a34a';
-  if(val==='Moderately aware') return '#2563eb';
-  if(val==='Slightly aware') return '#d97706';
-  return '#9ca3af';
+/* ═══════════════════════════════════════════════════════════
+   SEED DEMO DATA (includes the provided sample)
+══════════════════════════════════════════════════════════════ */
+function seedDemoData(){
+  const demo=[{
+    date:"3/4/2026, 7:21:04 pm",
+    name:"KALEEM",age:"18",gender:"Male",city:"DELHI",
+    course:"Science",college:"Acharya Narendra Dev",year:"1st Year",
+    q8:"No",q9:"Just for exams",
+    q10:"Hamare desh ke rakhwale",
+    q11:"26th January, 1950 ✓",q12:"Dr. B.R. Ambedkar",
+    q13:"395 (original)",q14:"Bhagwan",
+    q15:"Heard of it",q16:"Sometimes",q17:"Protect the Environment",
+    q18:"Stand silently",q19:"Never thought about it",q20:"I don't know",
+    q21:"Getting better",q22:"Yes - Experienced",q23:"Yes",
+    q24:"Necessary and should continue",q25:"5",
+    q26:"No - Very low awareness",q27:"Yes - Definitely",
+    q28:"Government awareness drives",q29:"4",q30:"No Comment",
+    q31:"5",q32:"Organize awareness campaign programs",
+    q33:"Physical survey is slightly better but this method is good",
+    q34:"",survey_rating:"",
+  },{
+    date:"3/4/2026, 9:05:12 am",
+    name:"PRIYA SHARMA",age:"20",gender:"Female",city:"MUMBAI",
+    course:"Arts",college:"St. Xavier's College",year:"2nd Year",
+    q8:"Yes",q9:"Studied in depth",
+    q10:"Foundation of democracy and rights of citizens",
+    q11:"26th January, 1950 ✓",q12:"Dr. B.R. Ambedkar",
+    q13:"395 (original)",q14:"Article 15",
+    q15:"Very aware",q16:"Always",q17:"Uphold sovereignty",
+    q18:"Stand and sing",q19:"Always conscious",q20:"Voting is best, littering is worst",
+    q21:"Equal for all",q22:"No",q23:"Mostly fair",
+    q24:"Should be reviewed periodically",q25:"5",
+    q26:"Moderate awareness","q27":"Yes - Definitely",
+    q28:"School curriculum reform",q29:"5",q30:"Yes, very politicized",
+    q31:"5",q32:"Make it part of school competitions",
+    q33:"Very insightful. Learnt a lot.",
+    q34:"Article on digital rights",survey_rating:"5",
+  },{
+    date:"2/4/2026, 3:30:00 pm",
+    name:"ROHAN VERMA",age:"22",gender:"Male",city:"BANGALORE",
+    course:"Engineering",college:"RV College of Engineering",year:"3rd Year",
+    q8:"Heard of it",q9:"Just for exams",
+    q10:"Set of rules governing the nation",
+    q11:"26th January, 1950 ✓",q12:"Dr. B.R. Ambedkar",
+    q13:"448 (as amended)",q14:"Rang De Basanti",
+    q15:"Heard of it",q16:"Sometimes",q17:"Pay taxes honestly",
+    q18:"Stand silently",q19:"Sometimes conscious",q20:"Voting is best",
+    q21:"Getting better",q22:"No",q23:"Yes",
+    q24:"Should be reviewed",q25:"4",
+    q26:"Low awareness",q27:"Yes",
+    q28:"Social media campaigns",q29:"3",q30:"Somewhat politicized",
+    q31:"4",q32:"YouTube series on Constitution",
+    q33:"Good initiative. More reach needed.",
+    q34:"Article on internet freedom",survey_rating:"4",
+  }];
+  localStorage.setItem('samvidhan_survey',JSON.stringify(demo));
 }
 
-function loadResults(){
-  const data=JSON.parse(localStorage.getItem('samvidhan_survey')||'[]');
-  const grid=document.getElementById('resultsGrid');
+/* ═══════════════════════════════════════════════════════════
+   LOAD & RENDER CARDS
+══════════════════════════════════════════════════════════════ */
+const COLORS=[
+  ['#FF9933','#c95c00'],
+  ['#138808','#0a5c05'],
+  ['#002147','#0a3870'],
+  ['#7c3aed','#5b21b6'],
+  ['#0891b2','#0e7490'],
+];
+
+function getInitials(name){
+  return name.trim().split(' ').map(w=>w[0]||'').join('').toUpperCase().slice(0,2)||'?';
+}
+
+function awareColor(q8){
+  if(q8==='Yes') return ['#16a34a','pill-green'];
+  if(q8==='Heard of it') return ['#d97706','pill-gold'];
+  return ['#9ca3af','pill-gray'];
+}
+
+function renderCards(){
+  const data=getData();
+  const grid=document.getElementById('cardsGrid');
   const empty=document.getElementById('emptyState');
+  const overall=document.getElementById('overallSection');
   grid.innerHTML='';
 
-  document.getElementById('totalCount').textContent=data.length;
+  // Stats
+  const cities=new Set(data.map(r=>r.city?.toUpperCase()).filter(Boolean));
+  const colleges=new Set(data.map(r=>r.college).filter(Boolean));
+  document.getElementById('sc-total').textContent=data.length;
+  document.getElementById('sc-cities').textContent=cities.size;
+  document.getElementById('sc-colleges').textContent=colleges.size;
+
+  // Avg awareness score = % who answered q8=Yes or q15=Very aware
+  if(data.length>0){
+    const aware=data.filter(r=>r.q8==='Yes'||r.q8==='yes').length;
+    const pct=Math.round((aware/data.length)*100);
+    document.getElementById('sc-awareness').textContent=pct+'%';
+  }
 
   if(data.length===0){
-    empty.classList.remove('hidden');
+    empty.style.display='block';
+    overall.style.display='none';
     return;
   }
-  empty.classList.add('hidden');
-
-  // Stats
-  const q1Freq={};const q2Freq={};
-  let audioCount=0;
-  data.forEach(r=>{
-    q1Freq[r.q1]=(q1Freq[r.q1]||0)+1;
-    q2Freq[r.q2]=(q2Freq[r.q2]||0)+1;
-    if(r.hasAudio)audioCount++;
-  });
-  const topQ1=Object.entries(q1Freq).sort((a,b)=>b[1]-a[1])[0];
-  const topQ2=Object.entries(q2Freq).sort((a,b)=>b[1]-a[1])[0];
-  if(topQ1) document.getElementById('awarenessTop').textContent=topQ1[0];
-  if(topQ2) document.getElementById('rightsTop').textContent=topQ2[0].replace(' rights','').replace('Know ','');
-  document.getElementById('hasAudio').textContent=audioCount;
+  empty.style.display='none';
+  overall.style.display='block';
 
   data.slice().reverse().forEach((r,i)=>{
+    const colorPair=COLORS[i%COLORS.length];
+    const [aColor,aPillClass]=awareColor(r.q8);
     const card=document.createElement('div');
-    card.className='response-card fade-in';
-    card.innerHTML=`
-      <div class="h-2" style="background:linear-gradient(90deg,var(--saffron),var(--gold),var(--green))"></div>
-      <div class="p-6">
-        <div class="flex items-start justify-between mb-4">
-          <div>
-            <h3 class="font-display text-xl font-bold" style="color:var(--navy)">${escHtml(r.name)}</h3>
-            <p class="text-sm text-gray-400">${escHtml(r.email)} ${r.phone?'• '+escHtml(r.phone):''}</p>
-          </div>
-          <span class="text-xs text-gray-300">${r.date||''}</span>
-        </div>
+    card.className='person-card fadein';
+    card.onclick=()=>openDossier(getData().length-1-i);
 
-        <div class="space-y-3">
-          <div class="flex justify-between items-center py-2 border-b border-gray-50">
-            <span class="text-sm text-gray-500">Constitution Awareness</span>
-            <span class="badge" style="background:${awareBadgeColor(r.q1)}22;color:${awareBadgeColor(r.q1)}">${escHtml(r.q1)}</span>
+    card.innerHTML=`
+      <div class="card-stripe"></div>
+      <div class="card-body">
+        <div class="dossier-btn">📋</div>
+        <div class="card-top">
+          <div class="card-avatar" style="background:linear-gradient(135deg,${colorPair[0]},${colorPair[1]})">
+            ${getInitials(r.name||'?')}
           </div>
-          <div class="flex justify-between items-center py-2 border-b border-gray-50">
-            <span class="text-sm text-gray-500">Fundamental Rights Knowledge</span>
-            <span class="badge" style="background:#1d4ed822;color:#1d4ed8">${escHtml(r.q2)}</span>
+          <div class="card-info">
+            <h3>${esc(r.name||'Anonymous')}</h3>
+            <p>${esc(r.college||'—')} • ${esc(r.city||'—')}</p>
           </div>
-          <div class="flex justify-between items-center py-2 ${r.q4?'border-b border-gray-50':''}">
-            <span class="text-sm text-gray-500">Fundamental Duties Awareness</span>
-            <span class="badge" style="background:#16a34a22;color:#16a34a">${escHtml(r.q3)}</span>
+        </div>
+        <div class="card-pills">
+          <span class="pill" style="background:${aColor}22;color:${aColor};">
+            ${r.q8==='Yes'?'✓ Aware':r.q8==='Heard of it'?'~ Partial':'✗ Unaware'}
+          </span>
+          <span class="pill pill-navy">${esc(r.course||'—')}</span>
+          <span class="pill pill-gray">${esc(r.year||'—')}</span>
+        </div>
+        <div class="card-meta">
+          <div class="card-meta-item">
+            <span class="meta-label">Age</span>
+            <span class="meta-value">${esc(r.age||'—')}</span>
           </div>
-          ${r.q4?`<div class="py-2">
-            <p class="text-xs text-gray-400 mb-1">Would like to learn more about:</p>
-            <p class="text-sm text-gray-700 italic">"${escHtml(r.q4)}"</p>
-          </div>`:''}
-          ${r.hasAudio?`<div class="py-2"><span class="badge" style="background:#f3e8ff;color:#7c3aed">🎙️ Audio Response</span></div>`:''}
+          <div class="card-meta-item">
+            <span class="meta-label">Gender</span>
+            <span class="meta-value">${esc(r.gender||'—')}</span>
+          </div>
+          <div class="card-meta-item">
+            <span class="meta-label">Submitted</span>
+            <span class="meta-value" style="font-size:.75rem;">${esc(r.date||'—')}</span>
+          </div>
+          <div class="card-meta-item">
+            <span class="meta-label">Rating</span>
+            <span class="meta-value">${r.survey_rating?'★ '+r.survey_rating+'/5':'—'}</span>
+          </div>
         </div>
       </div>
     `;
     grid.appendChild(card);
   });
 
-  const obs=new IntersectionObserver(e=>e.forEach(el=>el.isIntersecting&&el.target.classList.add('visible')),{threshold:.1});
-  document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+  renderOverall(data);
+  observeFade();
 }
 
-function escHtml(s){
+/* ═══════════════════════════════════════════════════════════
+   DOSSIER MODAL
+══════════════════════════════════════════════════════════════ */
+let currentPages=[];
+let currentPage=0;
+let isAnimating=false;
+
+function openDossier(idx){
+  const data=getData();
+  const r=data[idx];
+  if(!r) return;
+  currentPages=buildPages(r,idx);
+  currentPage=0;
+  renderPage(currentPage,false);
+  document.getElementById('dossierOverlay').classList.add('active');
+  document.body.style.overflow='hidden';
+}
+
+function closeDossier(){
+  document.getElementById('dossierOverlay').classList.remove('active');
+  document.body.style.overflow='';
+}
+
+document.getElementById('dossierOverlay').addEventListener('click',e=>{
+  if(e.target===document.getElementById('dossierOverlay')) closeDossier();
+});
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeDossier(); });
+
+function changePage(dir){
+  if(isAnimating) return;
+  const next=currentPage+dir;
+  if(next<0||next>=currentPages.length) return;
+  isAnimating=true;
+
+  const container=document.getElementById('pageContainer');
+  const current=container.querySelector('.current');
+  if(!current){ currentPage=next; renderPage(next,false); isAnimating=false; return; }
+
+  // Outgoing animation
+  current.classList.remove('current');
+  current.classList.add(dir>0?'turning-out':'turning-back-out');
+
+  // Prepare incoming page (hidden)
+  const incoming=document.createElement('div');
+  incoming.className='dossier-page '+(dir>0?'turning-in':'turning-back-in');
+  incoming.innerHTML=currentPages[next];
+  container.appendChild(incoming);
+  attachFoldListeners(incoming,next);
+
+  // After animation finishes
+  setTimeout(()=>{
+    current.remove();
+    incoming.classList.remove(dir>0?'turning-in':'turning-back-in');
+    incoming.classList.add('current');
+    currentPage=next;
+    updateNavButtons();
+    isAnimating=false;
+  },620);
+}
+
+function renderPage(idx,animate){
+  const container=document.getElementById('pageContainer');
+  container.innerHTML='';
+  const page=document.createElement('div');
+  page.className='dossier-page current';
+  page.innerHTML=currentPages[idx];
+  container.appendChild(page);
+  attachFoldListeners(page,idx);
+  updateNavButtons();
+}
+
+function attachFoldListeners(page,idx){
+  const fold=page.querySelector('.page-fold');
+  const foldBack=page.querySelector('.page-fold-back');
+  if(fold) fold.onclick=()=>changePage(1);
+  if(foldBack) foldBack.onclick=()=>changePage(-1);
+}
+
+function updateNavButtons(){
+  document.getElementById('prevBtn').disabled=currentPage===0;
+  document.getElementById('nextBtn').disabled=currentPage===currentPages.length-1;
+  document.getElementById('pageCounter').textContent=`${currentPage+1} / ${currentPages.length}`;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   BUILD PAGES FOR A RESPONDENT
+══════════════════════════════════════════════════════════════ */
+function buildPages(r,idx){
+  const refNo=`SMV-${String(idx+1).padStart(4,'0')}`;
+  const colorPair=COLORS[idx%COLORS.length];
+
+  const headerBand=(title)=>`
+    <div class="dossier-header-band">
+      <span class="dh-title"><img src="assets/icons/india-flag.svg" alt="Indian flag" class="flag-icon" style="margin-right:.35rem;vertical-align:-2px;"/> Samvidhan Survey — ${esc(title)}</span>
+      <span class="dh-ref">${refNo} | CONFIDENTIAL</span>
+    </div>`;
+  const footer=(pg,tot)=>`
+    <div class="page-footer">
+      <span class="pf-left">SAMVIDHAN SURVEY 2026</span>
+      <span class="pf-center">${esc(r.name||'RESPONDENT')}</span>
+      <span class="pf-right">PAGE ${pg} OF ${tot}</span>
+    </div>`;
+  const foldCorner=`<div class="page-fold"></div>`;
+  const foldBack=`<div class="page-fold-back"></div>`;
+
+  const tot=5;
+
+  /* ── Page 1: Cover ── */
+  const p1=`
+    ${headerBand('RESPONDENT DOSSIER')}
+    <div class="page-scroll">
+      <div class="page-content" style="text-align:center;padding-top:2.5rem;">
+        <div class="cover-seal" style="background:linear-gradient(135deg,${colorPair[0]},${colorPair[1]})">
+          ${getInitials(r.name||'?')}
+        </div>
+        <div>
+          <span class="cover-classified">SURVEY DOSSIER</span>
+        </div>
+        <h1 class="cover-title">${esc(r.name||'Anonymous')}</h1>
+        <p class="cover-subtitle">Constitutional Awareness Survey — Individual Report</p>
+        <div class="cover-grid">
+          <div class="cover-field"><label>Reference No.</label><span>${refNo}</span></div>
+          <div class="cover-field"><label>Submitted On</label><span>${esc(r.date||'—')}</span></div>
+          <div class="cover-field"><label>Age</label><span>${esc(r.age||'—')}</span></div>
+          <div class="cover-field"><label>Gender</label><span>${esc(r.gender||'—')}</span></div>
+          <div class="cover-field"><label>City</label><span>${esc(r.city||'—')}</span></div>
+          <div class="cover-field"><label>Course</label><span>${esc(r.course||'—')}</span></div>
+          <div class="cover-field" style="grid-column:1/-1"><label>College / Institution</label><span>${esc(r.college||'—')}</span></div>
+          <div class="cover-field" style="grid-column:1/-1"><label>Academic Year</label><span>${esc(r.year||'—')}</span></div>
+        </div>
+        <div style="display:flex;justify-content:center;gap:1.5rem;flex-wrap:wrap;">
+          <span style="border:2px solid var(--red-seal);color:var(--red-seal);font-size:.65rem;letter-spacing:3px;font-weight:700;padding:.25rem 1rem;display:inline-block;transform:rotate(-4deg);">CLASSIFIED</span>
+          <span style="border:2px solid var(--green);color:var(--green);font-size:.65rem;letter-spacing:3px;font-weight:700;padding:.25rem 1rem;display:inline-block;transform:rotate(3deg);">JAI HIND</span>
+        </div>
+      </div>
+    </div>
+    ${footer(1,tot)}
+    ${foldCorner}
+  `;
+
+  /* ── Page 2: Constitutional Awareness ── */
+  const knewDate=r.q11&&r.q11.includes('1950');
+  const knewAmbedkar=r.q12&&r.q12.toLowerCase().includes('ambedkar');
+  const knewArticles=(r.q13&&(r.q13.includes('395')||r.q13.includes('448')));
+  const awarenessScore=[knewDate,knewAmbedkar,knewArticles,r.q8==='Yes',r.q9&&r.q9!=='Just for exams'&&r.q9!=='Never'].filter(Boolean).length;
+  const awarPct=Math.round((awarenessScore/5)*100);
+
+  const p2=`
+    ${headerBand('CONSTITUTIONAL AWARENESS')}
+    <div class="page-scroll">
+      <div class="page-content">
+        <div class="dos-section">
+          <div class="dos-section-title">§ CONSTITUTIONAL KNOWLEDGE ASSESSMENT</div>
+          <div class="dos-row">
+            <div class="dos-field">
+              <label>Knows about Constitution?</label>
+              <span>${esc(r.q8||'—')}</span>
+            </div>
+            <div class="dos-field">
+              <label>How Studied?</label>
+              <span>${esc(r.q9||'—')}</span>
+            </div>
+            <div class="dos-field full">
+              <label>Constitution (Own Words)</label>
+              <span style="font-style:italic;">"${esc(r.q10||'—')}"</span>
+            </div>
+          </div>
+        </div>
+        <div class="dos-section">
+          <div class="dos-section-title">§ FACTUAL ACCURACY CHECK</div>
+          <div class="dos-row">
+            <div class="dos-field" style="border-left:3px solid ${knewDate?'var(--green)':'#e05050'}">
+              <label>Effective Date of Constitution</label>
+              <span>${esc(r.q11||'—')} ${knewDate?'✓':''}</span>
+            </div>
+            <div class="dos-field" style="border-left:3px solid ${knewAmbedkar?'var(--green)':'#e05050'}">
+              <label>Father of Constitution</label>
+              <span>${esc(r.q12||'—')} ${knewAmbedkar?'✓':''}</span>
+            </div>
+            <div class="dos-field" style="border-left:3px solid ${knewArticles?'var(--green)':'#e05050'}">
+              <label>Number of Articles</label>
+              <span>${esc(r.q13||'—')} ${knewArticles?'✓':''}</span>
+            </div>
+            <div class="dos-field">
+              <label>Bollywood Reference</label>
+              <span>${esc(r.q14||'—')}</span>
+            </div>
+          </div>
+        </div>
+        <div class="dos-section">
+          <div class="dos-section-title">§ AWARENESS SCORE</div>
+          <div class="dos-field" style="background:var(--navy);border:none;padding:1.25rem;">
+            <label style="color:var(--gold);">Overall Constitutional Awareness Index</label>
+            <span style="color:white;font-size:1.5rem;font-weight:900;font-family:'Playfair Display',serif;">${awarPct}%</span>
+            <div class="score-bar" style="margin-top:.5rem;background:rgba(255,255,255,.15);">
+              <div class="score-bar-fill" style="width:${awarPct}%;background:linear-gradient(90deg,var(--saffron),var(--gold));"></div>
+            </div>
+            <span style="color:rgba(255,255,255,.5);font-size:.7rem;margin-top:.3rem;display:block;">Based on factual accuracy (date, framer, articles) + self-assessment</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    ${footer(2,tot)}
+    ${foldBack}${foldCorner}
+  `;
+
+  /* ── Page 3: Duties & Equality ── */
+  const p3=`
+    ${headerBand('DUTIES & EQUALITY')}
+    <div class="page-scroll">
+      <div class="page-content">
+        <div class="dos-section">
+          <div class="dos-section-title">§ FUNDAMENTAL DUTIES</div>
+          <div class="dos-row">
+            <div class="dos-field">
+              <label>Awareness of Duties</label>
+              <span>${esc(r.q15||'—')}</span>
+            </div>
+            <div class="dos-field">
+              <label>Follows Duties?</label>
+              <span>${esc(r.q16||'—')}</span>
+            </div>
+            <div class="dos-field">
+              <label>Most Important Duty</label>
+              <span>${esc(r.q17||'—')}</span>
+            </div>
+            <div class="dos-field">
+              <label>National Anthem Conduct</label>
+              <span>${esc(r.q18||'—')}</span>
+            </div>
+            <div class="dos-field">
+              <label>Littering / Property Protection</label>
+              <span>${esc(r.q19||'—')}</span>
+            </div>
+            <div class="dos-field full">
+              <label>Best / Worst Duties Observed</label>
+              <span>${esc(r.q20||'—')}</span>
+            </div>
+          </div>
+        </div>
+        <div class="dos-section">
+          <div class="dos-section-title">§ EQUALITY & JUSTICE</div>
+          <div class="dos-row">
+            <div class="dos-field">
+              <label>Equal Opportunities in India?</label>
+              <span>${esc(r.q21||'—')}</span>
+            </div>
+            <div class="dos-field" style="border-left:3px solid ${r.q22&&r.q22.includes('Yes')?'#e05050':'var(--green)'}">
+              <label>Experienced Discrimination?</label>
+              <span>${esc(r.q22||'—')}</span>
+            </div>
+            <div class="dos-field">
+              <label>Laws Fair for Everyone?</label>
+              <span>${esc(r.q23||'—')}</span>
+            </div>
+            <div class="dos-field full">
+              <label>Opinion on Reservation</label>
+              <span style="font-style:italic;">"${esc(r.q24||'—')}"</span>
+            </div>
+            <div class="dos-field">
+              <label>Pride — Women's Voting Rights (1-5)</label>
+              <span style="font-size:1.2rem;">{'⭐'.repeat(parseInt(r.q25)||0)||'—'}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    ${footer(3,tot)}
+    ${foldBack}${foldCorner}
+  `.replace(/{.*?}/g, m => {
+    try{ return eval(m.slice(1,-1)); } catch(e){ return m; }
+  });
+
+  /* ── Page 4: Opinion & Final Thoughts ── */
+  const p4=`
+    ${headerBand('OPINION & FINAL THOUGHTS')}
+    <div class="page-scroll">
+      <div class="page-content">
+        <div class="dos-section">
+          <div class="dos-section-title">§ OPINION-BASED RESPONSES</div>
+          <div class="dos-row">
+            <div class="dos-field full">
+              <label>Indians' Constitutional Awareness?</label>
+              <span>${esc(r.q26||'—')}</span>
+            </div>
+            <div class="dos-field">
+              <label>Teach More in Schools?</label>
+              <span>${esc(r.q27||'—')}</span>
+            </div>
+            <div class="dos-field">
+              <label>Best Way to Improve Awareness</label>
+              <span>${esc(r.q28||'—')}</span>
+            </div>
+            <div class="dos-field">
+              <label>How Interesting? (1-5)</label>
+              <span style="font-size:1.15rem;font-weight:700;color:var(--saffron)">${esc(r.q29||'—')} / 5</span>
+            </div>
+            <div class="dos-field">
+              <label>Constitution Politicized?</label>
+              <span>${esc(r.q30||'—')}</span>
+            </div>
+          </div>
+        </div>
+        <div class="dos-section">
+          <div class="dos-section-title">§ FINAL THOUGHTS</div>
+          <div class="dos-row">
+            <div class="dos-field">
+              <label>Importance in Daily Life (1-5)</label>
+              <span style="font-size:1.15rem;font-weight:700;color:var(--navy)">${esc(r.q31||'—')} / 5</span>
+            </div>
+            <div class="dos-field">
+              <label>Survey Rating</label>
+              <span>${r.survey_rating?'★ '+r.survey_rating+'/5':'Not rated'}</span>
+            </div>
+            <div class="dos-field full">
+              <label>Suggestions to Promote Awareness</label>
+              <span style="font-style:italic;">"${esc(r.q32||'—')}"</span>
+            </div>
+            <div class="dos-field full">
+              <label>Biggest Takeaway</label>
+              <span style="font-style:italic;">"${esc(r.q33||'—')}"</span>
+            </div>
+            ${r.q34?`<div class="dos-field full"><label>Proposed New Article</label><span>"${esc(r.q34)}"</span></div>`:''}
+          </div>
+        </div>
+      </div>
+    </div>
+    ${footer(4,tot)}
+    ${foldBack}${foldCorner}
+  `;
+
+  /* ── Page 5: Analysis Report ── */
+  const analysis=generateAnalysis(r);
+  const p5=`
+    ${headerBand('ANALYSIS REPORT')}
+    <div class="page-scroll">
+      <div class="page-content">
+        <div class="dos-section">
+          <div class="dos-section-title">§ DOSSIER SUMMARY & ANALYSIS</div>
+          <div class="analysis-block">
+            <div class="analysis-label">Profile Overview</div>
+            <div class="analysis-text">${analysis.overview}</div>
+          </div>
+          <div class="analysis-block green">
+            <div class="analysis-label">Strengths Observed</div>
+            <div class="analysis-text">${analysis.strengths}</div>
+          </div>
+          <div class="analysis-block navy">
+            <div class="analysis-label">Areas for Growth</div>
+            <div class="analysis-text">${analysis.growth}</div>
+          </div>
+          <div class="analysis-block gold">
+            <div class="analysis-label">Civic Engagement Recommendation</div>
+            <div class="analysis-text">${analysis.recommendation}</div>
+          </div>
+        </div>
+        <div class="dos-section">
+          <div class="dos-section-title">§ DISPOSITION VERDICT</div>
+          <div class="dos-field verdict">
+            <label>CLASSIFICATION</label>
+            <span>${analysis.verdict}</span>
+          </div>
+        </div>
+        <div style="text-align:center;padding:1rem 0;opacity:.3;">
+          <span style="display:inline-flex;align-items:center;justify-content:center;"><img src="assets/icons/india-flag.svg" alt="Indian flag" style="width:64px;height:42px;border-radius:6px;object-fit:cover;"/></span>
+          <p style="font-size:.7rem;letter-spacing:3px;font-weight:700;font-family:'Rajdhani',sans-serif;color:var(--navy);margin-top:.25rem;">JAI HIND • JAI SAMVIDHAN</p>
+        </div>
+      </div>
+    </div>
+    ${footer(5,tot)}
+    ${foldBack}
+  `;
+
+  return [p1,p2,p3,p4,p5];
+}
+
+/* ═══════════════════════════════════════════════════════════
+   GENERATE ANALYSIS
+══════════════════════════════════════════════════════════════ */
+function generateAnalysis(r){
+  const name=r.name||'The respondent';
+  const city=r.city||'an Indian city';
+  const course=r.course||'their field';
+  const college=r.college||'their institution';
+
+  const knows=r.q8==='Yes';
+  const studied=r.q9&&!r.q9.includes('Just for exams')&&!r.q9.includes('Never');
+  const knewDate=r.q11&&r.q11.includes('1950');
+  const knewAmbedkar=r.q12&&r.q12.toLowerCase().includes('ambedkar');
+  const dutiesAware=r.q15&&!r.q15.includes('Never');
+  const followsDuties=r.q16==='Always'||r.q16==='Mostly';
+  const wantsMore=r.q27&&r.q27.includes('Yes');
+  const importanceScore=parseInt(r.q31)||0;
+
+  const overview=`${name}, a ${r.age||'young'}-year-old ${course} student from ${college}, ${city}, participated in the Samvidhan Constitutional Awareness Survey. ${knows?`They indicate an existing awareness of the Constitution`:`They acknowledge limited familiarity with constitutional provisions`}, having ${r.q9||'engaged with it in some capacity'} during their academic journey. Their personal understanding of the Constitution — "${r.q10||'not described'}" — reflects ${knows?'a foundational grasp':'a nascent understanding'} of its significance.`;
+
+  const strengthsList=[];
+  if(knewDate) strengthsList.push('correct knowledge of the Constitution\'s effective date (26 Jan 1950)');
+  if(knewAmbedkar) strengthsList.push('accurate identification of Dr. B.R. Ambedkar as the Father of the Constitution');
+  if(dutiesAware) strengthsList.push('some awareness of Fundamental Duties');
+  if(wantsMore) strengthsList.push('a strong desire for more constitutional education in schools');
+  if(importanceScore>=4) strengthsList.push('recognition of the Constitution\'s importance in daily life ('+importanceScore+'/5)');
+  if(r.q28) strengthsList.push('a concrete suggestion for improvement: '+r.q28);
+
+  const strengths=strengthsList.length>0
+    ? `${name} demonstrates ${strengthsList.join(', ')}. This reflects a ${importanceScore>=4?'meaningful':'developing'} civic orientation.`
+    : `${name} shows willingness to engage with the survey, which itself is a positive first step toward civic awareness.`;
+
+  const growthItems=[];
+  if(!knows) growthItems.push('deepening their understanding of the Constitution beyond surface familiarity');
+  if(!studied) growthItems.push('engaging with constitutional content beyond exam preparation');
+  if(!followsDuties) growthItems.push('consistently practicing Fundamental Duties in daily life');
+  if(r.q20==='I don\'t know'||!r.q20) growthItems.push('observing and reflecting on civic behavior patterns around them');
+  if(r.q30==='No Comment') growthItems.push('forming an informed opinion on constitutional debates');
+
+  const growth=growthItems.length>0
+    ? `Key areas where ${name} can grow include: ${growthItems.join('; ')}. Structured engagement with constitutional content — through workshops, campaigns, or self-study — would significantly accelerate this development.`
+    : `${name} appears to have a well-rounded understanding. Continued engagement and advocacy can help them become a constitutional ambassador in their community.`;
+
+  const recommendation=`Given ${name}'s background in ${course} at ${college} and their suggestion of "${r.q28||'awareness programs'}", they would benefit most from ${r.q28&&r.q28.toLowerCase().includes('school')?'curriculum-integrated constitutional modules':'government or institutional awareness drives'}. Their interest score of ${r.q29||'N/A'}/5 and importance rating of ${r.q31||'N/A'}/5 suggest ${importanceScore>=4?'high motivation for deeper engagement':'room for cultivating stronger civic interest'}. We recommend enrolling in civic education workshops and following platforms like Samvidhan for ongoing constitutional literacy.`;
+
+  const awareScore=[knewDate,knewAmbedkar,knows,dutiesAware,importanceScore>=4].filter(Boolean).length;
+  let verdict='';
+  if(awareScore>=4) verdict='CIVICALLY ENGAGED — High constitutional awareness and commitment to civic duties.';
+  else if(awareScore>=2) verdict='DEVELOPING AWARENESS — Foundational knowledge present; structured education recommended.';
+  else verdict='CONSTITUTIONAL NOVICE — Limited exposure noted; civic education programs strongly recommended.';
+
+  return {overview,strengths,growth,recommendation,verdict};
+}
+
+/* ═══════════════════════════════════════════════════════════
+   OVERALL REPORT
+══════════════════════════════════════════════════════════════ */
+function renderOverall(data){
+  const grid=document.getElementById('overallGrid');
+  grid.innerHTML='';
+
+  if(data.length===0) return;
+
+  // Awareness distribution
+  const awarenessMap={};
+  const dutiesMap={};
+  const waysMap={};
+  data.forEach(r=>{
+    const k=r.q8||'Unknown'; awarenessMap[k]=(awarenessMap[k]||0)+1;
+    const d=r.q15||'Unknown'; dutiesMap[d]=(dutiesMap[d]||0)+1;
+    const w=r.q28||'Unknown'; waysMap[w]=(waysMap[w]||0)+1;
+  });
+
+  const totalAware=data.filter(r=>r.q8==='Yes').length;
+  const wantSchool=data.filter(r=>r.q27&&r.q27.includes('Yes')).length;
+  const avgImportance=(data.reduce((s,r)=>s+(parseInt(r.q31)||0),0)/data.length).toFixed(1);
+  const avgInterest=(data.reduce((s,r)=>s+(parseInt(r.q29)||0),0)/data.length).toFixed(1);
+
+  // Card 1: Awareness Breakdown
+  grid.innerHTML+=`
+    <div class="ov-card fadein">
+      <h4>🧠 Constitutional Awareness</h4>
+      ${Object.entries(awarenessMap).map(([k,v])=>`
+        <div class="bar-chart-item">
+          <div class="bar-label"><span>${esc(k)}</span><span>${v} (${Math.round(v/data.length*100)}%)</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:${Math.round(v/data.length*100)}%;background:linear-gradient(90deg,var(--saffron),var(--gold));"></div></div>
+        </div>`).join('')}
+    </div>`;
+
+  // Card 2: Duties Awareness
+  grid.innerHTML+=`
+    <div class="ov-card fadein">
+      <h4>⚖️ Fundamental Duties Awareness</h4>
+      ${Object.entries(dutiesMap).map(([k,v])=>`
+        <div class="bar-chart-item">
+          <div class="bar-label"><span>${esc(k)}</span><span>${v} (${Math.round(v/data.length*100)}%)</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:${Math.round(v/data.length*100)}%;background:linear-gradient(90deg,var(--green),#4ade80);"></div></div>
+        </div>`).join('')}
+    </div>`;
+
+  // Card 3: Improvement Suggestions
+  grid.innerHTML+=`
+    <div class="ov-card fadein">
+      <h4>💡 Preferred Awareness Methods</h4>
+      ${Object.entries(waysMap).map(([k,v])=>`
+        <div class="bar-chart-item">
+          <div class="bar-label"><span>${esc(k)}</span><span>${v}</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:${Math.round(v/data.length*100)}%;background:linear-gradient(90deg,var(--navy),#2563eb);"></div></div>
+        </div>`).join('')}
+    </div>`;
+
+  // Insight strip
+  grid.innerHTML+=`
+    <div class="insight-card fadein">
+      <div class="insight-item">
+        <h5>Constitutional Awareness Rate</h5>
+        <p>${totalAware} of ${data.length} respondents (${Math.round(totalAware/data.length*100)}%) report knowing about the Constitution. This indicates ${totalAware/data.length>0.6?'a relatively aware sample, though gaps remain in applied knowledge':'significant room for improvement in constitutional literacy among this demographic'}.</p>
+      </div>
+      <div class="insight-item">
+        <h5>Civic Importance Score</h5>
+        <p>Average importance rating: <strong style="color:var(--gold)">${avgImportance}/5</strong>. Interest score: <strong style="color:var(--gold)">${avgInterest}/5</strong>. Respondents rate the Constitution highly relevant to daily life, showing strong intrinsic motivation for learning.</p>
+      </div>
+      <div class="insight-item">
+        <h5>School Education Demand</h5>
+        <p>${wantSchool} of ${data.length} (${Math.round(wantSchool/data.length*100)}%) want more constitutional education in schools. This suggests a clear institutional gap that curriculum reform and co-curricular activities could address.</p>
+      </div>
+    </div>`;
+
+  observeFade();
+}
+
+/* ═══════════════════════════════════════════════════════════
+   UTILITIES
+══════════════════════════════════════════════════════════════ */
+function getData(){
+  return JSON.parse(localStorage.getItem('samvidhan_survey')||'[]');
+}
+function esc(s){
   if(!s) return '';
-  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
-
 function clearAll(){
-  if(confirm('Clear all survey responses? This cannot be undone.')){
+  if(confirm('Clear all survey responses? This cannot be undone.')) {
     localStorage.removeItem('samvidhan_survey');
-    loadResults();
+    renderCards();
   }
 }
 
-document.getElementById('hamburger').addEventListener('click',()=>document.getElementById('mobileMenu').classList.toggle('open'));
-loadResults();
-const observer=new IntersectionObserver(e=>e.forEach(el=>el.isIntersecting&&el.target.classList.add('visible')),{threshold:.1});
-document.querySelectorAll('.fade-in').forEach(el=>observer.observe(el));
+function observeFade(){
+  const obs=new IntersectionObserver(entries=>{
+    entries.forEach(el=>{ if(el.isIntersecting) el.target.classList.add('vis'); });
+  },{threshold:.08});
+  document.querySelectorAll('.fadein:not(.vis)').forEach(el=>obs.observe(el));
+}
+
+/* ═══════════════════════════════════════════════════════════
+   INIT
+══════════════════════════════════════════════════════════════ */
+window.addEventListener('DOMContentLoaded',()=>{
+  // Seed demo data if localStorage is empty
+  if(!localStorage.getItem('samvidhan_survey')||JSON.parse(localStorage.getItem('samvidhan_survey')).length===0){
+    seedDemoData();
+  }
+  renderCards();
+  observeFade();
+});
 </script>
 </body>
 </html>
