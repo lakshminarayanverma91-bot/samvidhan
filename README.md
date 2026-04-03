@@ -106,35 +106,6 @@ This project aims to:
 
 ---
 
-## 📂 Project Structure
-
-```
-/project-folder
-│── index.html
-│── sovereignty.html
-│── secularism.html
-│── socialism.html
-│── democracy.html
-│── republic.html
-│── justice.html
-│── liberty.html
-│── equality.html
-│── fraternity.html
-│── dignity.html
-│── unity.html
-│── rights.html
-│── crimes.html
-│── cases.html
-│── articles.html
-│── helpline.html
-│── quiz.html
-│── freedom.html
-│── survey.html
-│── results.html
-```
-
----
-
 ## 💡 Future Improvements
 
 * Backend integration (Django / Node.js)
