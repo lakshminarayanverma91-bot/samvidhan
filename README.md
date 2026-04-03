@@ -1,4 +1,4 @@
-# 🇮🇳 Constitution of India – Interactive Website
+# 🇮🇳 Samvidhan - The Constitution of India
 
 An interactive and responsive multi-page website that simplifies the **Constitution of India** and its core values for everyone.
 This project presents complex constitutional concepts in **easy language**, along with real-life examples, quizzes, case studies, and more.
