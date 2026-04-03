@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Survey Results – Samvidhan</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root{--saffron:#FF9933;--green:#138808;--navy:#002147;--gold:#C9A84C;--cream:#FDF8F0;}
+body{font-family:'Inter',sans-serif;background:var(--cream);overflow-x:hidden;}
+.font-display{font-family:'Playfair Display',serif;}
+.tricolor{height:6px;background:linear-gradient(to right,var(--saffron) 33.33%,white 33.33%,white 66.66%,var(--green) 66.66%);}
+nav{background:rgba(0,33,71,.97);}
+.response-card{background:white;border-radius:1.25rem;overflow:hidden;box-shadow:0 2px 16px rgba(0,0,0,.07);transition:all .3s;}
+.response-card:hover{box-shadow:0 8px 32px rgba(0,33,71,.1);}
+.badge{display:inline-block;padding:.25rem .75rem;border-radius:999px;font-size:.75rem;font-weight:600;}
+.fade-in{opacity:0;transform:translateY(30px);transition:all .6s;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+.mobile-menu{max-height:0;overflow:hidden;transition:max-height .4s ease;}
+.mobile-menu.open{max-height:600px;}
+</style>
+</head>
+<body>
+<div class="tricolor"></div>
+<nav class="sticky top-0 z-50 px-6 py-4">
+  <div class="max-w-7xl mx-auto flex items-center justify-between">
+    <a href="index.html" class="font-display text-white text-xl font-bold">🇮🇳 Samvidhan</a>
+    <div class="hidden lg:flex gap-6 text-white text-sm">
+      <a href="index.html" class="hover:text-yellow-300">Home</a>
+      <a href="survey.html" class="hover:text-yellow-300">Survey</a>
+      <a href="results.html" class="text-yellow-300">Results</a>
+      <a href="quiz.html" class="hover:text-yellow-300">Quiz</a>
+      <a href="helpline.html" class="hover:text-yellow-300">Helpline</a>
+    </div>
+    <button id="hamburger" class="lg:hidden text-white p-2">☰</button>
+  </div>
+  <div id="mobileMenu" class="mobile-menu lg:hidden">
+    <div class="max-w-7xl mx-auto px-6 pb-4 flex flex-col gap-3 text-white text-sm mt-4">
+      <a href="index.html" class="py-2 border-b border-white border-opacity-20">Home</a>
+      <a href="survey.html" class="py-2 border-b border-white border-opacity-20">Survey</a>
+      <a href="results.html" class="py-2">Results</a>
+    </div>
+  </div>
+</nav>
+
+<section style="background:linear-gradient(135deg,var(--navy),#0a4a8a)" class="py-20 px-6 text-center text-white">
+  <div class="max-w-3xl mx-auto fade-in visible">
+    <p class="text-xs uppercase tracking-widest mb-4" style="color:var(--gold)">Survey Dashboard</p>
+    <h1 class="font-display text-5xl font-black mb-4">Response <span style="color:var(--saffron)">Results</span></h1>
+    <p class="text-gray-300 max-w-xl mx-auto">All submitted survey responses — a snapshot of constitutional awareness in India.</p>
+  </div>
+</section>
+
+<div class="max-w-6xl mx-auto px-6 py-16">
+
+  <!-- Stats Row -->
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12 fade-in" id="statsRow">
+    <div class="bg-white rounded-2xl p-6 text-center shadow-sm">
+      <div class="font-display text-4xl font-black mb-2" id="totalCount" style="color:var(--saffron)">0</div>
+      <p class="text-sm text-gray-500">Total Responses</p>
+    </div>
+    <div class="bg-white rounded-2xl p-6 text-center shadow-sm">
+      <div class="font-display text-3xl font-black mb-2" id="awarenessTop" style="color:var(--green)">—</div>
+      <p class="text-sm text-gray-500">Top Awareness Level</p>
+    </div>
+    <div class="bg-white rounded-2xl p-6 text-center shadow-sm">
+      <div class="font-display text-3xl font-black mb-2" id="rightsTop" style="color:var(--navy)">—</div>
+      <p class="text-sm text-gray-500">Rights Knowledge</p>
+    </div>
+    <div class="bg-white rounded-2xl p-6 text-center shadow-sm">
+      <div class="font-display text-3xl font-black mb-2" id="hasAudio" style="color:var(--gold)">0</div>
+      <p class="text-sm text-gray-500">Audio Responses</p>
+    </div>
+  </div>
+
+  <!-- Controls -->
+  <div class="flex flex-wrap items-center justify-between gap-4 mb-6 fade-in">
+    <h2 class="font-display text-3xl font-bold" style="color:var(--navy)">Individual <span style="border-bottom:3px solid var(--gold);padding-bottom:3px">Responses</span></h2>
+    <div class="flex gap-3">
+      <button onclick="clearAll()" class="px-4 py-2 rounded-xl border-2 text-sm font-medium text-red-500 border-red-200 hover:bg-red-50 transition">🗑️ Clear All</button>
+      <a href="survey.html" class="px-4 py-2 rounded-xl text-white text-sm font-medium" style="background:var(--saffron)">+ Add Response</a>
+    </div>
+  </div>
+
+  <!-- Results Grid -->
+  <div id="resultsGrid" class="grid grid-cols-1 md:grid-cols-2 gap-5"></div>
+
+  <!-- Empty state -->
+  <div id="emptyState" class="hidden text-center py-20">
+    <div class="text-6xl mb-6">📭</div>
+    <h3 class="font-display text-2xl font-bold mb-3" style="color:var(--navy)">No Responses Yet</h3>
+    <p class="text-gray-500 mb-6">Be the first to share your opinion about constitutional awareness!</p>
+    <a href="survey.html" class="px-8 py-3 rounded-xl text-white font-semibold" style="background:var(--saffron)">Take the Survey →</a>
+  </div>
+
+</div>
+
+<footer style="background:var(--navy)" class="text-white py-10 px-6 text-center">
+  <div class="tricolor mb-6"></div>
+  <a href="index.html" class="font-display text-xl font-bold" style="color:var(--gold)">Samvidhan</a>
+  <p class="text-xs text-gray-500 mt-2">© 2024 Samvidhan 🇮🇳 | Survey data stored locally in your browser</p>
+</footer>
+
+<script>
+function awareBadgeColor(val){
+  if(val==='Very aware') return '#16a34a';
+  if(val==='Moderately aware') return '#2563eb';
+  if(val==='Slightly aware') return '#d97706';
+  return '#9ca3af';
+}
+
+function loadResults(){
+  const data=JSON.parse(localStorage.getItem('samvidhan_survey')||'[]');
+  const grid=document.getElementById('resultsGrid');
+  const empty=document.getElementById('emptyState');
+  grid.innerHTML='';
+
+  document.getElementById('totalCount').textContent=data.length;
+
+  if(data.length===0){
+    empty.classList.remove('hidden');
+    return;
+  }
+  empty.classList.add('hidden');
+
+  // Stats
+  const q1Freq={};const q2Freq={};
+  let audioCount=0;
+  data.forEach(r=>{
+    q1Freq[r.q1]=(q1Freq[r.q1]||0)+1;
+    q2Freq[r.q2]=(q2Freq[r.q2]||0)+1;
+    if(r.hasAudio)audioCount++;
+  });
+  const topQ1=Object.entries(q1Freq).sort((a,b)=>b[1]-a[1])[0];
+  const topQ2=Object.entries(q2Freq).sort((a,b)=>b[1]-a[1])[0];
+  if(topQ1) document.getElementById('awarenessTop').textContent=topQ1[0];
+  if(topQ2) document.getElementById('rightsTop').textContent=topQ2[0].replace(' rights','').replace('Know ','');
+  document.getElementById('hasAudio').textContent=audioCount;
+
+  data.slice().reverse().forEach((r,i)=>{
+    const card=document.createElement('div');
+    card.className='response-card fade-in';
+    card.innerHTML=`
+      <div class="h-2" style="background:linear-gradient(90deg,var(--saffron),var(--gold),var(--green))"></div>
+      <div class="p-6">
+        <div class="flex items-start justify-between mb-4">
+          <div>
+            <h3 class="font-display text-xl font-bold" style="color:var(--navy)">${escHtml(r.name)}</h3>
+            <p class="text-sm text-gray-400">${escHtml(r.email)} ${r.phone?'• '+escHtml(r.phone):''}</p>
+          </div>
+          <span class="text-xs text-gray-300">${r.date||''}</span>
+        </div>
+
+        <div class="space-y-3">
+          <div class="flex justify-between items-center py-2 border-b border-gray-50">
+            <span class="text-sm text-gray-500">Constitution Awareness</span>
+            <span class="badge" style="background:${awareBadgeColor(r.q1)}22;color:${awareBadgeColor(r.q1)}">${escHtml(r.q1)}</span>
+          </div>
+          <div class="flex justify-between items-center py-2 border-b border-gray-50">
+            <span class="text-sm text-gray-500">Fundamental Rights Knowledge</span>
+            <span class="badge" style="background:#1d4ed822;color:#1d4ed8">${escHtml(r.q2)}</span>
+          </div>
+          <div class="flex justify-between items-center py-2 ${r.q4?'border-b border-gray-50':''}">
+            <span class="text-sm text-gray-500">Fundamental Duties Awareness</span>
+            <span class="badge" style="background:#16a34a22;color:#16a34a">${escHtml(r.q3)}</span>
+          </div>
+          ${r.q4?`<div class="py-2">
+            <p class="text-xs text-gray-400 mb-1">Would like to learn more about:</p>
+            <p class="text-sm text-gray-700 italic">"${escHtml(r.q4)}"</p>
+          </div>`:''}
+          ${r.hasAudio?`<div class="py-2"><span class="badge" style="background:#f3e8ff;color:#7c3aed">🎙️ Audio Response</span></div>`:''}
+        </div>
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+
+  const obs=new IntersectionObserver(e=>e.forEach(el=>el.isIntersecting&&el.target.classList.add('visible')),{threshold:.1});
+  document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+}
+
+function escHtml(s){
+  if(!s) return '';
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function clearAll(){
+  if(confirm('Clear all survey responses? This cannot be undone.')){
+    localStorage.removeItem('samvidhan_survey');
+    loadResults();
+  }
+}
+
+document.getElementById('hamburger').addEventListener('click',()=>document.getElementById('mobileMenu').classList.toggle('open'));
+loadResults();
+const observer=new IntersectionObserver(e=>e.forEach(el=>el.isIntersecting&&el.target.classList.add('visible')),{threshold:.1});
+document.querySelectorAll('.fade-in').forEach(el=>observer.observe(el));
+</script>
+</body>
+</html>
