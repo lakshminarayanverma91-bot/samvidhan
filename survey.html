@@ -637,50 +637,6 @@ body.overlay-lock {
   50% { border-color: transparent; }
 }
 
-/* Election fact overlay effect (Q33 first option) */
-#q33-election-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(150, 0, 0, 0.98);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  z-index: 10002;
-  transition: opacity 0.45s ease, visibility 0s linear 0.45s;
-}
-#q33-election-overlay.active {
-  opacity: 1;
-  visibility: visible;
-  pointer-events: all;
-  transition: opacity 0.45s ease;
-}
-.q33-election-content {
-  width: min(92vw, 900px);
-  padding: 20px;
-}
-.q33-election-title {
-  color: #fff;
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(1.5rem, 4.8vw, 3rem);
-  line-height: 1.25;
-  text-align: center;
-  text-shadow: 0 6px 24px rgba(0,0,0,0.35);
-}
-.q33-election-quote {
-  color: rgba(255,255,255,0.9);
-  font-family: 'Nunito', sans-serif;
-  font-size: clamp(0.9rem, 2.4vw, 1.2rem);
-  font-weight: 700;
-  text-align: right;
-  margin-top: 18px;
-}
-body.q33-overlay-lock {
-  overflow: hidden;
-}
-
 /* Responsive */
 @media (max-width: 600px) {
   .options-grid.cols-2 { grid-template-columns: 1fr; }
@@ -703,13 +659,6 @@ body.q33-overlay-lock {
   <div class="future-message" id="future-message">Welcome to Future</div>
 </div>
 
-<div id="q33-election-overlay" aria-hidden="true">
-  <div class="q33-election-content">
-    <p class="q33-election-title">Election saal me ek hee baar aata hai</p>
-    <p class="q33-election-quote">------Jayantilal Champaklal Jethalal Gada</p>
-  </div>
-</div>
-
 <!-- Header -->
 <header class="site-header">
   <span class="logo-emoji">📜</span>
@@ -721,9 +670,9 @@ body.q33-overlay-lock {
 <div class="book-wrapper">
   <div class="survey-book">
     <!-- Progress -->
-    <div class="progress-label" id="progress-label">Page 1 of 9</div>
+    <div class="progress-label" id="progress-label">Page 1 of 7</div>
     <div class="progress-bar-wrap">
-      <div class="progress-bar-fill" id="progress-bar" style="width:11.1%"></div>
+      <div class="progress-bar-fill" id="progress-bar" style="width:14.3%"></div>
     </div>
 
     <div class="pages-container" id="pages-container">
@@ -765,7 +714,7 @@ body.q33-overlay-lock {
           <span class="page-icon">🪪</span>
           <div class="page-title-wrap">
             <div class="page-subtitle">Section 1</div>
-            <h2>Aapka Parichay — Tu Hai Kon?</h2>
+            <h2>Aapka Parichay — Aap Hai Kon?</h2>
           </div>
         </div>
         <p class="q-funny" style="margin-left:0; margin-bottom:18px;">
@@ -951,126 +900,13 @@ body.q33-overlay-lock {
       </div>
 
       <!-- ========================================================
-           PAGE 3 — FUNDAMENTAL RIGHTS
+           PAGE 3 — FUNDAMENTAL DUTIES
            ======================================================== -->
       <div class="page-card" id="page-3">
         <div class="page-header">
-          <span class="page-icon">⚖️</span>
-          <div class="page-title-wrap">
-            <div class="page-subtitle">Section 3</div>
-            <h2>Maulik Adhikar — Your Rights, Bro! 💪</h2>
-          </div>
-        </div>
-        <p class="q-funny" style="margin-left:0; margin-bottom:18px;">
-          (Rights milte hain, use karo. Unless you're Vijay Mallya. He used them TOO well. ✈️)
-        </p>
-
-        <div class="q-group">
-          <label class="q-label">
-            <span class="q-num">15</span> Are you aware of your Fundamental Rights?
-            <span class="q-funny">Other than the right to beg for links in Instagram Reels📱</span>
-          </label>
-          <div class="yn-wrap">
-            <button class="yn-btn yes" onclick="selectYN(this,'q15','Yes')">✅ Haan! Article 12-35 yaad hai!</button>
-            <button class="yn-btn no" onclick="selectYN(this,'q15','No')">❌ Rights hai yeh pata nahi tha!</button>
-            <button class="yn-btn maybe" onclick="selectYN(this,'q15','Partially')">🤨 Mai tujhe kyu batau</button>
-          </div>
-          <input type="hidden" id="q15" value=""/>
-        </div>
-
-        <div class="section-divider"></div>
-
-        <div class="q-group">
-          <label class="q-label">
-            <span class="q-num">16</span> Which of the following Fundamental Rights are you familiar with? (Select all you know)
-            <span class="q-funny">Choose honestly. This is not your exam paper. 📝</span>
-          </label>
-          <div class="options-grid">
-            <label class="opt-label" onclick="toggleMulti(event, this)"><input type="checkbox"/> ⚖️ Right to Equality (Art. 14-18)</label>
-            <label class="opt-label" onclick="toggleMulti(event, this)"><input type="checkbox"/> 🕊️ Right to Freedom (Art. 19-22)</label>
-            <label class="opt-label" onclick="toggleMulti(event, this)"><input type="checkbox"/> 🚫 Right Against Exploitation (Art. 23-24)</label>
-            <label class="opt-label" onclick="toggleMulti(event, this)"><input type="checkbox"/> 🛐 Freedom of Religion (Art. 25-28)</label>
-            <label class="opt-label" onclick="toggleMulti(event, this)"><input type="checkbox"/> 📚 Right to Education (Art. 21A)</label>
-            <label class="opt-label" onclick="toggleMulti(event, this)"><input type="checkbox"/> 🏛️ Right to Constitutional Remedies (Art. 32)</label>
-            <label class="opt-label" onclick="toggleMulti(event, this)"><input type="checkbox"/> 🤷 All of the above (Toppers gang!)</label>
-            <label class="opt-label" onclick="toggleMulti(event, this)"><input type="checkbox"/> 😅 None, I need to go for Doom-scrolling</label>
-          </div>
-        </div>
-
-        <div class="section-divider"></div>
-
-        <div class="q-group">
-          <label class="q-label">
-            <span class="q-num">17</span> Do you think ALL citizens are treated equally in India?
-            <span class="q-funny" style="color:#c0392b;">Dark Joke Mode 🌑: Ask this at a government office and see what happens.</span>
-          </label>
-          <div class="yn-wrap">
-            <button class="yn-btn yes" onclick="selectYN(this,'q17','Yes - Absolutely')">🙌 Haan, bilkul!</button>
-            <button class="yn-btn no" onclick="selectYN(this,'q17','No - Reality Check')">😬 Nahi, abhi bahut kaam baaki hai</button>
-            <button class="yn-btn maybe" onclick="selectYN(this,'q17','Depends')">😭 Kaash Metro me ladko ke liye bhi kuch seats reserverd hoti</button>
-          </div>
-          <input type="hidden" id="q17" value=""/>
-        </div>
-
-        <div class="section-divider"></div>
-
-        <div class="q-group">
-          <label class="q-label">
-            <span class="q-num">18</span> Have you ever felt your Fundamental Rights were violated?
-            <span class="q-funny">UNO reverse card if you violated someone else's rights first! 🃏</span>
-          </label>
-          <div class="yn-wrap">
-            <button class="yn-btn yes" onclick="selectYN(this,'q18','Yes')">😤 Yes! Multiple times!</button>
-            <button class="yn-btn no" onclick="selectYN(this,'q18','No')">😊 No, I'm blessed</button>
-            <button class="yn-btn maybe" onclick="selectYN(this,'q18','Not Sure')">🤔 Ladko ke bhi hote hai?</button>
-          </div>
-          <input type="hidden" id="q18" value=""/>
-        </div>
-
-        <div class="section-divider"></div>
-
-        <div class="q-group">
-          <label class="q-label">
-            <span class="q-num">19</span> Article 19 gives Right to Freedom of Speech. How do YOU use it most? 😂
-            <span class="q-funny">Remember: The Supreme Court has views on this. WhatsApp University may differ.</span>
-          </label>
-          <div class="options-grid">
-            <label class="opt-label" onclick="selectOpt(this,'q19-group')"><input type="radio" name="q19"/> 🐦 Tweeting opinions at 2 AM</label>
-            <label class="opt-label" onclick="selectOpt(this,'q19-group')"><input type="radio" name="q19"/> 📺 Shouting at family during news debate</label>
-            <label class="opt-label" onclick="selectOpt(this,'q19-group')"><input type="radio" name="q19"/> 📱 Jeevan-Sangini se baat karne me</label>
-            <label class="opt-label" onclick="selectOpt(this,'q19-group')"><input type="radio" name="q19"/> 🗣️ Actual constructive discussion</label>
-          </div>
-        </div>
-
-        <div class="section-divider"></div>
-
-        <div class="q-group">
-          <label class="q-label">
-            <span class="q-num">20</span> Do you think the "Article 15" movie (Ayushmann Khurrana) showed a realistic picture of discrimination?
-            <span class="q-funny">Bollywood + Constitution = Interesting combination, no? 🎬</span>
-          </label>
-          <div class="yn-wrap">
-            <button class="yn-btn yes" onclick="selectYN(this,'q20','Yes')">✅ Yes, it was eye-opening</button>
-            <button class="yn-btn no" onclick="selectYN(this,'q20','No')">❌ It was too dramatic</button>
-            <button class="yn-btn maybe" onclick="selectYN(this,'q20','Havent seen')">😅 Maine Dhurandhar tak nahi dekhi!</button>
-          </div>
-          <input type="hidden" id="q20" value=""/>
-        </div>
-
-        <div class="nav-buttons">
-          <button class="nav-btn prev" onclick="goPrev()">← Pichhe</button>
-          <button class="nav-btn next" onclick="goNext()">Next Section →</button>
-        </div>
-      </div>
-
-      <!-- ========================================================
-           PAGE 4 — FUNDAMENTAL DUTIES
-           ======================================================== -->
-      <div class="page-card" id="page-4">
-        <div class="page-header">
           <span class="page-icon">🫡</span>
           <div class="page-title-wrap">
-            <div class="page-subtitle">Section 4</div>
+            <div class="page-subtitle">Section 3</div>
             <h2>Maulik Kartavya — Duties? Kya Hota Hai? 😅</h2>
           </div>
         </div>
@@ -1080,7 +916,7 @@ body.q33-overlay-lock {
 
         <div class="q-group">
           <label class="q-label">
-            <span class="q-num">21</span> Are you aware of your Fundamental Duties?
+            <span class="q-num">15</span> Are you aware of your Fundamental Duties?
             <span class="q-funny">Spoiler alert: "Watching Dhurandhar 3 times in theatre" is NOT one of them 🎬</span>
           </label>
           <div class="yn-wrap">
@@ -1095,7 +931,7 @@ body.q33-overlay-lock {
 
         <div class="q-group">
           <label class="q-label">
-            <span class="q-num">22</span> Do you follow your duties as a responsible citizen?
+            <span class="q-num">16</span> Do you follow your duties as a responsible citizen?
             <span class="q-funny">Vijay Mallya, Nirav Modi and Mehul Choksi have left the group. ✈️</span>
           </label>
           <div class="yn-wrap">
@@ -1110,7 +946,7 @@ body.q33-overlay-lock {
 
         <div class="q-group">
           <label class="q-label">
-            <span class="q-num">23</span> Which duty do you think is MOST important?
+            <span class="q-num">17</span> Which duty do you think is MOST important?
             <span class="q-funny">Choose wisely. Your answer will be judged... just kidding. Or am I? 😈</span>
           </label>
           <div class="options-grid">
@@ -1127,7 +963,7 @@ body.q33-overlay-lock {
 
         <div class="q-group">
           <label class="q-label">
-            <span class="q-num">24</span> How do you show respect to the National Anthem? 🎵
+            <span class="q-num">18</span> How do you show respect to the National Anthem? 🎵
             <span class="q-funny">Please say something better than "I stand up in the cinema"</span>
           </label>
           <div class="options-grid">
@@ -1142,7 +978,7 @@ body.q33-overlay-lock {
 
         <div class="q-group">
           <label class="q-label">
-            <span class="q-num">25</span> One Fundamental Duty says "protect public property." When was the last time you saw someone NOT littering?
+            <span class="q-num">19</span> One Fundamental Duty says "protect public property." When was the last time you saw someone NOT littering?
             <span class="q-funny" style="color:#c0392b;">Dark Mode 🌑: Aaj mai jab raste me aa raha tha toh mujhe topi dikhi.</span>
           </label>
           <div class="yn-wrap">
@@ -1157,7 +993,7 @@ body.q33-overlay-lock {
 
         <div class="q-group">
           <label class="q-label">
-            <span class="q-num">26</span> Write one duty you think Indians perform BEST and one they perform WORST:
+            <span class="q-num">20</span> Write one duty you think Indians perform BEST and one they perform WORST:
           </label>
           <textarea class="q-textarea" id="q26" placeholder="Best duty: We're great at ___&#10;Worst duty: We completely ignore ___&#10;(Be honest! The constitution won't get offended... probably 😂)"></textarea>
         </div>
@@ -1169,13 +1005,13 @@ body.q33-overlay-lock {
       </div>
 
       <!-- ========================================================
-           PAGE 5 — EQUALITY & JUSTICE
+           PAGE 4 — EQUALITY & JUSTICE
            ======================================================== -->
-      <div class="page-card" id="page-5">
+      <div class="page-card" id="page-4">
         <div class="page-header">
           <span class="page-icon">🏛️</span>
           <div class="page-title-wrap">
-            <div class="page-subtitle">Section 5</div>
+            <div class="page-subtitle">Section 4</div>
             <h2>Samanta & Nyaya — Reality Check Time! 🪞</h2>
           </div>
         </div>
@@ -1185,7 +1021,7 @@ body.q33-overlay-lock {
 
         <div class="q-group">
           <label class="q-label">
-            <span class="q-num">27</span> Do you believe India provides equal opportunities to ALL its citizens?
+            <span class="q-num">21</span> Do you believe India provides equal opportunities to ALL its citizens?
             <span class="q-funny">Honest answers only. Your JEE rank does not count as "equal opportunity." 💔</span>
           </label>
           <div class="yn-wrap">
@@ -1200,7 +1036,7 @@ body.q33-overlay-lock {
 
         <div class="q-group">
           <label class="q-label">
-            <span class="q-num">28</span> Have you personally seen or experienced discrimination based on caste, gender, color or religion?
+            <span class="q-num">22</span> Have you personally seen or experienced discrimination based on caste, gender, color or religion?
             <span class="q-funny" style="color:#c0392b;">Dark Mode 🌑: Tu bas ek baar answer de aur dekh</span>
           </label>
           <div class="yn-wrap">
@@ -1215,7 +1051,7 @@ body.q33-overlay-lock {
 
         <div class="q-group">
           <label class="q-label">
-            <span class="q-num">29</span> Do you think laws in India are fair for everyone?
+            <span class="q-num">23</span> Do you think laws in India are fair for everyone?
             <span class="q-funny">Remember: In India, "out of court settlement" is practically a legal term. 😂</span>
           </label>
           <div class="yn-wrap">
@@ -1230,7 +1066,7 @@ body.q33-overlay-lock {
 
         <div class="q-group">
           <label class="q-label">
-            <span class="q-num">30</span> The Constitution grants RESERVATION to uplift marginalized communities. Your honest opinion?
+            <span class="q-num">24</span> The Constitution grants RESERVATION to uplift marginalized communities. Your honest opinion?
             <span class="q-funny">Tera response hamare paas stored rahega toh soch-samajh ke boliyo jo bolna hai 🐦‍🔥</span>
           </label>
           <div class="options-grid">
@@ -1245,7 +1081,7 @@ body.q33-overlay-lock {
 
         <div class="q-group">
           <label class="q-label">
-            <span class="q-num">31</span> Women got Right to Vote in India in 1950 itself (unlike some "developed" countries). How proud does this make you?
+            <span class="q-num">25</span> Women got Right to Vote in India in 1950 itself (unlike some "developed" countries). How proud does this make you?
             <span class="q-funny">Fun fact: Switzerland gave women voting rights only in 1971. Kuch hua, hum pehle bade!</span>
           </label>
           <div class="scale-wrap" id="q31-scale">
@@ -1266,110 +1102,13 @@ body.q33-overlay-lock {
       </div>
 
       <!-- ========================================================
-           PAGE 6 — DEMOCRACY & PARTICIPATION
+           PAGE 5 — OPINION BASED
            ======================================================== -->
-      <div class="page-card" id="page-6">
-        <div class="page-header">
-          <span class="page-icon">🗳️</span>
-          <div class="page-title-wrap">
-            <div class="page-subtitle">Section 6</div>
-            <h2>Loktantra — Vote Karo Ya Rote Raho! 😤</h2>
-          </div>
-        </div>
-        <p class="q-funny" style="margin-left:0; margin-bottom:18px;">
-          (Elections aate hain jaise IPL — full drama, massive coverage, false promises like RCB “Ee saala cup namde!”, and you're somehow blamed for the result anyway 😂)
-        </p>
-
-        <div class="q-group">
-          <label class="q-label">
-            <span class="q-num">32</span> Do you understand the importance of voting?
-            <span class="q-funny">It's the ONE time your opinion matters more than your relatives'. 🗳️</span>
-          </label>
-          <div class="yn-wrap">
-            <button class="yn-btn yes" onclick="selectYN(this,'q32','Yes')">✅ Democracy = My vote matters!</button>
-            <button class="yn-btn no" onclick="selectYN(this,'q32','No')">🙄 Mera vote kya fark karega?</button>
-            <button class="yn-btn maybe" onclick="selectYN(this,'q32','Somewhat')">🤔 Ek murge aur bottle ke liye kuch bhi</button>
-          </div>
-          <input type="hidden" id="q32" value=""/>
-        </div>
-
-        <div class="section-divider"></div>
-
-        <div class="q-group">
-          <label class="q-label">
-            <span class="q-num">33</span> Would you / Do you vote when eligible?
-            <span class="q-funny">If "no," please report to your nearest constitutional values class immediately. 😂</span>
-          </label>
-          <div class="yn-wrap">
-            <button class="yn-btn yes" onclick="handleQ33FirstOption(this)">🦁 100% — every time, every year!</button>
-            <button class="yn-btn maybe" onclick="selectYN(this,'q33','Depends')">😐 Depends on candidates...</button>
-            <button class="yn-btn no" onclick="selectYN(this,'q33','No - Not planning')">😴 Modiji ke liye kuch bhi</button>
-          </div>
-          <input type="hidden" id="q33" value=""/>
-        </div>
-
-        <div class="section-divider"></div>
-
-        <div class="q-group">
-          <label class="q-label">
-            <span class="q-num">34</span> How do you follow news related to government and policies?
-            <span class="q-funny">WhatsApp University does NOT count as a credible news source. Sorry Chacha! 😅</span>
-          </label>
-          <div class="options-grid">
-            <label class="opt-label" onclick="selectOpt(this,'q34-group')"><input type="radio" name="q34"/> 📰 Newspapers / Credible news websites</label>
-            <label class="opt-label" onclick="selectOpt(this,'q34-group')"><input type="radio" name="q34"/> 📺 TV news (all 47 debates!)</label>
-            <label class="opt-label" onclick="selectOpt(this,'q34-group')"><input type="radio" name="q34"/> 📱 Social media (Instagram / Twitter)</label>
-            <label class="opt-label" onclick="selectOpt(this,'q34-group')"><input type="radio" name="q34"/> 💬 WhatsApp family group 😅</label>
-            <label class="opt-label" onclick="selectOpt(this,'q34-group')"><input type="radio" name="q34"/> 🙈 I don't follow news at all</label>
-          </div>
-        </div>
-
-        <div class="section-divider"></div>
-
-        <div class="q-group">
-          <label class="q-label">
-            <span class="q-num">35</span> Have you ever participated in any civic activity (like conducted by NSS)?
-            <span class="q-funny">Signing an online petition DOES count, even if nothing happened. 💪</span>
-          </label>
-          <div class="options-grid">
-            <label class="opt-label" onclick="toggleMulti(event, this)"><input type="checkbox"/> 🗳️ Voted in an election</label>
-            <label class="opt-label" onclick="toggleMulti(event, this)"><input type="checkbox"/> 📝 Signed a petition for a society called "Mehfil"</label>
-            <label class="opt-label" onclick="toggleMulti(event, this)"><input type="checkbox"/> 🏃 Participated in a rally/march</label>
-            <label class="opt-label" onclick="toggleMulti(event, this)"><input type="checkbox"/> 💬 Posted a political opinion online</label>
-            <label class="opt-label" onclick="toggleMulti(event, this)"><input type="checkbox"/> 🙏 Volunteered for community work</label>
-            <label class="opt-label" onclick="toggleMulti(event, this)"><input type="checkbox"/> 😴 None — I'm a peaceful bystander</label>
-          </div>
-        </div>
-
-        <div class="section-divider"></div>
-
-        <div class="q-group">
-          <label class="q-label">
-            <span class="q-num">36</span> India has a NOTA option (None of the Above). Have you used or would you use it?
-            <span class="q-funny">NOTA: When the ballot paper says "no thanks" more politely than you can. 😂</span>
-          </label>
-          <div class="yn-wrap">
-            <button class="yn-btn yes" onclick="selectYN(this,'q36','Yes - Used it')">✅ Yes/Would! Sab bekaar the!</button>
-            <button class="yn-btn no" onclick="selectYN(this,'q36','No')">❌ Nahi, koi ek toh choose karunga</button>
-            <button class="yn-btn maybe" onclick="selectYN(this,'q36','What is NOTA')">😲 Wait, yeh option hai?!</button>
-          </div>
-          <input type="hidden" id="q36" value=""/>
-        </div>
-
-        <div class="nav-buttons">
-          <button class="nav-btn prev" onclick="goPrev()">← Pichhe</button>
-          <button class="nav-btn next" onclick="goNext()">Next Section →</button>
-        </div>
-      </div>
-
-      <!-- ========================================================
-           PAGE 7 — OPINION BASED
-           ======================================================== -->
-      <div class="page-card" id="page-7">
+      <div class="page-card" id="page-5">
         <div class="page-header">
           <span class="page-icon">💭</span>
           <div class="page-title-wrap">
-            <div class="page-subtitle">Section 7</div>
+            <div class="page-subtitle">Section 5</div>
             <h2>Aapki Rai — Your Opinion Matters because we aren't your Principal! (Mostly)</h2>
           </div>
         </div>
@@ -1379,7 +1118,7 @@ body.q33-overlay-lock {
 
         <div class="q-group">
           <label class="q-label">
-            <span class="q-num">37</span> Do you think people in India are generally aware of constitutional values?
+            <span class="q-num">26</span> Do you think people in India are generally aware of constitutional values?
             <span class="q-funny">Remember: Knowing the name "Constitution" ≠ knowing constitutional values 😅</span>
           </label>
           <div class="yn-wrap">
@@ -1394,7 +1133,7 @@ body.q33-overlay-lock {
 
         <div class="q-group">
           <label class="q-label">
-            <span class="q-num">38</span> Should constitutional values be taught MORE in schools and colleges?
+            <span class="q-num">27</span> Should constitutional values be taught MORE in schools and colleges?
             <span class="q-funny">Spoiler: We spent 6 chapters on Mughal architecture (Jai Oggy) and 0.5 pages on Fundamental Rights 😭</span>
           </label>
           <div class="yn-wrap">
@@ -1409,7 +1148,7 @@ body.q33-overlay-lock {
 
         <div class="q-group">
           <label class="q-label">
-            <span class="q-num">39</span> How can constitutional awareness be BEST improved? (Pick your top idea)
+            <span class="q-num">28</span> How can constitutional awareness be BEST improved? (Pick your top idea)
           </label>
           <div class="options-grid">
             <label class="opt-label" onclick="selectOpt(this,'q39-group')"><input type="radio" name="q39"/> 📱 Social media campaigns (Reels, Memes!, this Survey)</label>
@@ -1425,7 +1164,7 @@ body.q33-overlay-lock {
 
         <div class="q-group">
           <label class="q-label">
-            <span class="q-num">40</span> Rate how interesting you find the Indian Constitution on a scale of 1-5:
+            <span class="q-num">29</span> Rate how interesting you find the Indian Constitution on a scale of 1-5:
             <span class="q-funny">If you said 1, this survey has failed. If 5, you're our new ambassador! 😄</span>
           </label>
           <div class="scale-wrap" id="q40-scale">
@@ -1443,7 +1182,7 @@ body.q33-overlay-lock {
 
         <div class="q-group">
           <label class="q-label">
-            <span class="q-num">41</span> Do you think "Jai Shree Ram 🚩" vs "Jai Hind" controversy showed how constitution gets politicized? <span class="dark-joke-badge">🌑 Deep Thought</span>
+            <span class="q-num">30</span> Do you think "Jai Shree Ram 🚩" vs "Jai Hind" controversy showed how constitution gets politicized? <span class="dark-joke-badge">🌑 Deep Thought</span>
             <span class="q-funny">Both are constitutionally fine. But you'd never know that from your news channel. 📺</span>
           </label>
           <div class="yn-wrap">
@@ -1461,13 +1200,13 @@ body.q33-overlay-lock {
       </div>
 
       <!-- ========================================================
-           PAGE 8 — FINAL + AUDIO
+           PAGE 6 — FINAL + AUDIO
            ======================================================== -->
-      <div class="page-card" id="page-8">
+      <div class="page-card" id="page-6">
         <div class="page-header">
           <span class="page-icon">🎙️</span>
           <div class="page-title-wrap">
-            <div class="page-subtitle">Section 8 – Final Round</div>
+            <div class="page-subtitle">Section 6 – Final Round</div>
             <h2>Aakhri Sawaal — Aur Aapki Awaaz! 🎤</h2>
           </div>
         </div>
@@ -1477,7 +1216,7 @@ body.q33-overlay-lock {
 
         <div class="q-group">
           <label class="q-label">
-            <span class="q-num">42</span> How important are constitutional values in your DAILY life?
+            <span class="q-num">31</span> How important are constitutional values in your DAILY life?
             <span class="q-funny">From your morning chai to your midnight Twitter rant — the constitution is always there! ☕</span>
           </label>
           <div class="scale-wrap" id="q42-scale">
@@ -1495,7 +1234,7 @@ body.q33-overlay-lock {
 
         <div class="q-group">
           <label class="q-label">
-            <span class="q-num">43</span> Any suggestions to promote constitutional awareness in India?
+            <span class="q-num">32</span> Any suggestions to promote constitutional awareness in India?
             <span class="q-funny">Your answer might actually be read. Unlike that RTI application. 😂</span>
           </label>
           <textarea class="q-textarea" id="q43" placeholder="Share your genius idea here... Who knows, it might actually happen! Or get forwarded on WhatsApp, which is basically the same thing 😄"></textarea>
@@ -1505,7 +1244,7 @@ body.q33-overlay-lock {
 
         <div class="q-group">
           <label class="q-label">
-            <span class="q-num">44</span> Your biggest takeaway from this survey / आप हमसे अलग क्या करेंगे? 🤔:
+            <span class="q-num">33</span> Your biggest takeaway from this survey / आप हमसे अलग क्या करेंगे? 🤔:
           </label>
           <textarea class="q-textarea" id="q44" placeholder="I didn't know that... / From now on I will... / The Constitution basically says..."></textarea>
         </div>
@@ -1514,7 +1253,7 @@ body.q33-overlay-lock {
 
         <div class="q-group">
           <label class="q-label">
-            <span class="q-num">45</span> If you could add ONE Article to the Constitution, what would it be?
+            <span class="q-num">34</span> If you could add ONE Article to the Constitution, what would it be?
             <span class="q-funny">Article 45A: "Politicians must watch Scam 1992 before taking office." Valid? 😂</span>
           </label>
           <textarea class="q-textarea" id="q45" placeholder="My proposed Article: ___ (I, [Your Name], hereby propose that the Constitution of India shall add...)"></textarea>
@@ -1621,7 +1360,7 @@ const RECIPIENT_EMAIL     = "lakshminarayanverma91@gmail.com";
    STATE
    ============================================================ */
 let currentPage = 0;
-const totalPages = 9; // 0-8
+const totalPages = 7; // 0-6
 let mediaRecorder = null;
 let audioChunks = [];
 let audioBase64 = "";
@@ -1630,7 +1369,6 @@ let recordingSeconds = 0;
 let isRecording = false;
 let q28EffectTimers = [];
 let q28TypingTimer = null;
-let q33EffectTimer = null;
 
 /* ============================================================
    DOTS
@@ -1801,37 +1539,6 @@ function runQ28FutureEffect() {
 function handleQ28Selection(el, val) {
   selectYN(el, 'q28', val);
   runQ28FutureEffect();
-}
-
-function clearQ33EffectTimer() {
-  if (q33EffectTimer) {
-    clearTimeout(q33EffectTimer);
-    q33EffectTimer = null;
-  }
-}
-
-function runQ33ElectionEffect() {
-  const overlay = document.getElementById('q33-election-overlay');
-  if (!overlay) return;
-
-  clearQ33EffectTimer();
-
-  overlay.classList.remove('active');
-  void overlay.offsetWidth;
-
-  document.body.classList.add('q33-overlay-lock');
-  overlay.classList.add('active');
-
-  q33EffectTimer = setTimeout(() => {
-    overlay.classList.remove('active');
-    document.body.classList.remove('q33-overlay-lock');
-    q33EffectTimer = null;
-  }, 3800);
-}
-
-function handleQ33FirstOption(el) {
-  selectYN(el, 'q33', 'Always will');
-  runQ33ElectionEffect();
 }
 
 function selectScale(el, scaleId, val) {
@@ -2035,14 +1742,6 @@ function collectData() {
     return el ? el.closest('.opt-label').textContent.trim() : 'Not answered';
   };
 
-  // Helper to get all checked checkboxes
-  const getMulti = selector => {
-    const checked = document.querySelectorAll(`${selector} .opt-label.selected`);
-    return checked.length > 0
-      ? Array.from(checked).map(el => el.textContent.trim()).join(', ')
-      : 'None selected';
-  };
-
   // Helper to get YN button value
   const getYN = id => document.getElementById(id)?.value || 'Not answered';
 
@@ -2066,14 +1765,6 @@ function collectData() {
     q14: document.getElementById('q14')?.value || '',
 
     // Section 3
-    q15: getYN('q15'),
-    q16: getMulti('#page-3 .options-grid:nth-child(1)'),
-    q17: getYN('q17'),
-    q18: getYN('q18'),
-    q19: getRadio('q19'),
-    q20: getYN('q20'),
-
-    // Section 4
     q21: getYN('q21'),
     q22: getYN('q22'),
     q23: getRadio('q23'),
@@ -2081,28 +1772,21 @@ function collectData() {
     q25: getYN('q25'),
     q26: document.getElementById('q26')?.value || '',
 
-    // Section 5
+    // Section 4
     q27: getYN('q27'),
     q28: getYN('q28'),
     q29: getYN('q29'),
     q30: getRadio('q30'),
     q31: document.getElementById('q31')?.value || '',
 
-    // Section 6
-    q32: getYN('q32'),
-    q33: getYN('q33'),
-    q34: getRadio('q34'),
-    q35: getMulti('#page-6 .options-grid'),
-    q36: getYN('q36'),
-
-    // Section 7
+    // Section 5
     q37: getYN('q37'),
     q38: getYN('q38'),
     q39: getRadio('q39'),
     q40: document.getElementById('q40')?.value || '',
     q41: getYN('q41'),
 
-    // Section 8
+    // Section 6
     q42: document.getElementById('q42')?.value || '',
     q43: document.getElementById('q43')?.value || '',
     q44: document.getElementById('q44')?.value || '',
@@ -2143,54 +1827,37 @@ Q12 - Father of Indian Constitution:      ${d.q12}
 Q13 - Number of Articles:                 ${d.q13}
 Q14 - Bollywood movie name for Const.:    ${d.q14}
 
-⚖️ SECTION 3: FUNDAMENTAL RIGHTS
+🫡 SECTION 3: FUNDAMENTAL DUTIES
 -----------------------------------
-Q15 - Aware of Fundamental Rights?        ${d.q15}
-Q16 - Rights familiar with:              ${d.q16}
-Q17 - All citizens treated equally?       ${d.q17}
-Q18 - Rights ever violated?              ${d.q18}
-Q19 - How uses Freedom of Speech:         ${d.q19}
-Q20 - Article 15 movie realistic?         ${d.q20}
+Q15 - Aware of Fundamental Duties?        ${d.q21}
+Q16 - Follows duties?                     ${d.q22}
+Q17 - Most important duty:               ${d.q23}
+Q18 - Respects National Anthem how?       ${d.q24}
+Q19 - Littering / property protection?   ${d.q25}
+Q20 - Best/Worst duties Indians perform:  ${d.q26}
 
-🫡 SECTION 4: FUNDAMENTAL DUTIES
+🏛️ SECTION 4: EQUALITY & JUSTICE
 -----------------------------------
-Q21 - Aware of Fundamental Duties?        ${d.q21}
-Q22 - Follows duties?                     ${d.q22}
-Q23 - Most important duty:               ${d.q23}
-Q24 - Respects National Anthem how?       ${d.q24}
-Q25 - Littering / property protection?   ${d.q25}
-Q26 - Best/Worst duties Indians perform:  ${d.q26}
+Q21 - Equal opportunities in India?       ${d.q27}
+Q22 - Experienced discrimination?         ${d.q28}
+Q23 - Laws fair for everyone?            ${d.q29}
+Q24 - Opinion on Reservation:            ${d.q30}
+Q25 - Pride about women's vote (1-5):     ${d.q31}
 
-🏛️ SECTION 5: EQUALITY & JUSTICE
------------------------------------
-Q27 - Equal opportunities in India?       ${d.q27}
-Q28 - Experienced discrimination?         ${d.q28}
-Q29 - Laws fair for everyone?            ${d.q29}
-Q30 - Opinion on Reservation:            ${d.q30}
-Q31 - Pride about women's vote (1-5):     ${d.q31}
-
-🗳️ SECTION 6: DEMOCRACY & PARTICIPATION
------------------------------------------
-Q32 - Understands importance of voting?  ${d.q32}
-Q33 - Would/Does vote?                   ${d.q33}
-Q34 - How follows news:                  ${d.q34}
-Q35 - Civic activities participated in:  ${d.q35}
-Q36 - Would use NOTA?                    ${d.q36}
-
-💭 SECTION 7: OPINION-BASED
+💭 SECTION 5: OPINION-BASED
 -----------------------------
-Q37 - Indians aware of constitutional values?  ${d.q37}
-Q38 - Should teach more in schools?       ${d.q38}
-Q39 - Best way to improve awareness:      ${d.q39}
-Q40 - How interesting is Constitution (1-5): ${d.q40}
-Q41 - Constitution gets too politicized?  ${d.q41}
+Q26 - Indians aware of constitutional values?  ${d.q37}
+Q27 - Should teach more in schools?       ${d.q38}
+Q28 - Best way to improve awareness:      ${d.q39}
+Q29 - How interesting is Constitution (1-5): ${d.q40}
+Q30 - Constitution gets too politicized?  ${d.q41}
 
-🎙️ SECTION 8: FINAL THOUGHTS
+🎙️ SECTION 6: FINAL THOUGHTS
 ------------------------------
-Q42 - Importance in daily life (1-5):    ${d.q42}
-Q43 - Suggestions to promote awareness:  ${d.q43}
-Q44 - Biggest takeaway:                  ${d.q44}
-Q45 - Proposed new Article:              ${d.q45}
+Q31 - Importance in daily life (1-5):    ${d.q42}
+Q32 - Suggestions to promote awareness:  ${d.q43}
+Q33 - Biggest takeaway:                  ${d.q44}
+Q34 - Proposed new Article:              ${d.q45}
 Audio Recorded:                          ${d.has_audio}
 
 ⭐ Survey Rating: ${d.survey_rating}/5
