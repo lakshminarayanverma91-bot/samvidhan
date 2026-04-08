@@ -214,6 +214,12 @@ body::before {
 .q-group {
   margin-bottom: 26px;
 }
+.q-group.validation-error {
+  border: 2px solid #c0392b;
+  border-radius: 12px;
+  padding: 12px;
+  background: rgba(192,57,43,0.06);
+}
 .q-label {
   display: block;
   font-weight: 700;
@@ -310,6 +316,7 @@ body::before {
   font-family: 'Nunito', sans-serif;
   font-size: 0.95rem;
   font-weight: 800;
+  text-decoration: none;
   cursor: pointer;
   transition: all 0.2s;
   color: var(--navy);
@@ -319,6 +326,38 @@ body::before {
 .yn-btn.yes.selected { background: var(--green); color: #fff; border-color: var(--green); }
 .yn-btn.no.selected  { background: #c0392b; color: #fff; border-color: #c0392b; }
 .yn-btn.maybe.selected { background: var(--gold); color: #fff; border-color: var(--gold); }
+#q30-bajrang-overlay {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(214,124,30,0.9) 0%, rgba(145,67,10,0.96) 54%, rgba(86,36,4,0.99) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  z-index: 10003;
+  transition: opacity 0.65s ease, visibility 0s linear 0.65s;
+}
+#q30-bajrang-overlay.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: all;
+  transition: opacity 0.65s ease;
+}
+#q30-bajrang-overlay img {
+  width: min(88vw, 430px);
+  border-radius: 14px;
+  border: 3px solid rgba(255,248,238,0.9);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.38);
+  opacity: 0;
+  transform: scale(0.9) translateY(8px);
+  transition: opacity 0.75s ease, transform 0.75s ease;
+}
+#q30-bajrang-overlay.image-visible img {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
 
 /* Scale rating */
 .scale-wrap { display: flex; gap: 8px; justify-content: space-between; }
@@ -630,6 +669,46 @@ audio { width: 100%; margin-top: 12px; border-radius: 8px; }
 .future-message.typing {
   animation: typeCaret 0.7s step-end infinite;
 }
+#q17-video-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.86);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  z-index: 10002;
+  transition: opacity 0.25s ease, visibility 0s linear 0.25s;
+}
+#q17-video-overlay.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: all;
+  transition: opacity 0.25s ease;
+}
+#q17-video {
+  width: min(92vw, 560px);
+  max-height: 80vh;
+  border-radius: 14px;
+  background: #000;
+  box-shadow: 0 16px 50px rgba(0,0,0,0.45);
+}
+#q17-video-close {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.18);
+  color: #fff;
+  font-size: 1.25rem;
+  font-weight: 700;
+  cursor: pointer;
+}
 body.overlay-lock {
   overflow: hidden;
 }
@@ -657,6 +736,15 @@ body.overlay-lock {
 
 <div id="future-overlay" aria-hidden="true">
   <div class="future-message" id="future-message">Welcome to Future</div>
+</div>
+
+<div id="q17-video-overlay" aria-hidden="true">
+  <button id="q17-video-close" type="button" aria-label="Close video">x</button>
+  <video id="q17-video" playsinline preload="auto"></video>
+</div>
+
+<div id="q30-bajrang-overlay" aria-hidden="true">
+  <img id="q30-bajrang-overlay-image" alt="Bajrang Dal"/>
 </div>
 
 <!-- Header -->
@@ -693,7 +781,7 @@ body.overlay-lock {
           </div>
           <div class="disclaimer">
             <span>⚠️</span>
-            <span>This survey is for research purposes. Your responses are strictly confidential and will NOT be used to file an FIR. Probably. 😅</span>
+            <span>This survey is for research purpose. Your responses are strictly confidential and will NOT be used to file an FIR. Probably. 😅</span>
           </div>
           <p class="start-hint">👇 Click "Begin My Journey" to start — it's free, unlike some takes money to provide Internship</p>
         </div>
@@ -723,7 +811,7 @@ body.overlay-lock {
 
         <div class="q-group">
           <label class="q-label"><span class="q-num">1</span> Your Good Name (as it appears on Aadhar, not as your mom calls you in anger)</label>
-          <input type="text" class="q-input" id="name" placeholder="e.g., Ramesh Kumar Sharma Gupta..."/>
+          <input type="text" class="q-input" id="name" placeholder="e.g., Johnny 'The Plumber'"/>
         </div>
 
         <div class="q-group">
@@ -747,8 +835,8 @@ body.overlay-lock {
         </div>
 
         <div class="q-group">
-          <label class="q-label"><span class="q-num">4</span> Which city are you from?</label>
-          <input type="text" class="q-input" id="city" placeholder="Your city (the one that never shows up on Google Maps properly)"/>
+          <label class="q-label"><span class="q-num">4</span> Your Email ID</label>
+          <input type="email" class="q-input" id="email" placeholder="you@example.com" required/>
         </div>
 
         <div class="q-group">
@@ -770,8 +858,8 @@ body.overlay-lock {
           <label class="q-label"><span class="q-num">7</span> Year / Semester</label>
           <select class="q-select" id="year">
             <option value="">— Select Year —</option>
-            <option>1st Year (Nibba-Nibbi ke stories ki shuruat)</option><option>2nd Year</option><option>3rd Year (Akhand Single)</option>
-            <option>4th Year (Back aa gyi isliye yaha hu)</option><option>5th Year (Respect!)</option>
+            <option>1st Year (Nibba-Nibbi ke prem-kahani ki shuruat)</option><option>2nd Year</option><option>3rd Year (Abhi tak Single hee hu)</option>
+            <option>4th Year (Back aa gyi thi isliye abhi tak yhi hu)</option><option>5th Year (Respect!)</option>
             <option>PG / Masters</option><option>PhD (Legend!)</option>
             <option>Pass out / Working (Paisa hee paisa hai😁)</option>
           </select>
@@ -794,18 +882,18 @@ body.overlay-lock {
           <span class="page-icon">📖</span>
           <div class="page-title-wrap">
             <div class="page-subtitle">Section 2</div>
-            <h2>Constitution — Sunne Mein Acha Lagta Hai? 😅</h2>
+            <h2>Constitution — Sunne Mein Acha Lagta Hai! 😅</h2>
           </div>
         </div>
 
         <div class="q-group">
           <label class="q-label">
             <span class="q-num">8</span> Do you know about the Constitution of India?
-            <span class="q-funny">Hint: It's not a Bollywood script, though it's equally dramatic like Insta pe 1 rs wali reel 🎬</span>
+            <span class="q-funny">Hint: It's not a Bollywood script, though it's equally dramatic like Anupamaa's Life 🎬</span>
           </label>
           <div class="yn-wrap">
             <button class="yn-btn yes" onclick="selectYN(this,'q8','Yes')">✅ Haan ji, bilkul!</button>
-            <button class="yn-btn no" onclick="selectYN(this,'q8','No')">❌ Bas naam suna hai</button>
+            <button class="yn-btn no" onclick="selectYN(this,'q8','No')">❌ Bas naam hee suna hai</button>
             <button class="yn-btn maybe" onclick="selectYN(this,'q8','Maybe')">🤔 Thoda thoda</button>
           </div>
           <input type="hidden" id="q8" value=""/>
@@ -815,7 +903,7 @@ body.overlay-lock {
 
         <div class="q-group">
           <label class="q-label">
-            <span class="q-num">9</span> Have you studied constitutional values in your course?
+            <span class="q-num">9</span> Have you studied Constitutional Values in your course?
             <span class="q-funny">Or did you just Google it 5 mins before the exam? No judgment. 😂</span>
           </label>
           <div class="yn-wrap">
@@ -833,7 +921,7 @@ body.overlay-lock {
             <span class="q-num">10</span> According to you, what is the Constitution?
             <span class="q-funny">In your own words. "It's a very big book" is NOT an accepted answer. 📚</span>
           </label>
-          <textarea class="q-textarea" id="q10" placeholder="Tell us in your own words... you got this! (No copy-paste from Wikipedia, we have anti-cheating AI 🤖)"></textarea>
+          <textarea class="q-textarea" id="q10" placeholder="Tell us in your own words... you got this! (No copy-paste from ChatGPT or any other, we have anti-cheating AI 🤖)"></textarea>
         </div>
 
         <div class="section-divider"></div>
@@ -841,13 +929,13 @@ body.overlay-lock {
         <div class="q-group">
           <label class="q-label">
             <span class="q-num">11</span> Do you know when the Constitution of India came into effect?
-            <span class="q-funny">It's NOT the same date as your favorite cricketer Chiku's birthday. 😅</span>
+            <span class="q-funny">It's NOT the same date as your favorite cricketer, Chiku's birthday. 😅</span>
           </label>
           <div class="options-grid">
             <label class="opt-label" onclick="selectOpt(this,'q11-group')"><input type="radio" name="q11"/> 📅 26th January, 1950 ✓</label>
             <label class="opt-label" onclick="selectOpt(this,'q11-group')"><input type="radio" name="q11"/> 📅 15th August, 1947 (That's Independence Day bhai!)</label>
             <label class="opt-label" onclick="selectOpt(this,'q11-group')"><input type="radio" name="q11"/> 📅 26th November, 1949 (Constitution Day!)</label>
-            <label class="opt-label" onclick="selectOpt(this,'q11-group')"><input type="radio" name="q11"/> 🤷 No idea, I thought Bhagwan Modi ji wrote it</label>
+            <label class="opt-label" onclick="selectOpt(this,'q11-group'); playModiOptionAudio()"><input type="radio" name="q11"/> 🤷 No idea, I thought Bhagwan Modi ji wrote it</label>
           </div>
         </div>
 
@@ -859,10 +947,10 @@ body.overlay-lock {
             <span class="q-funny">Dark hint: He was not allowed to drink water at certain places in this very country. 💔</span>
           </label>
           <div class="options-grid cols-2">
-            <label class="opt-label" onclick="selectOpt(this,'q12-group')"><input type="radio" name="q12"/> 🙏 Dr. B.R. Ambedkar</label>
+            <label class="opt-label" onclick="selectOpt(this,'q12-group'); playQ24TopThreeOptionsAudio()"><input type="radio" name="q12"/> 🙏 Dr. B.R. Ambedkar</label>
             <label class="opt-label" onclick="selectOpt(this,'q12-group')"><input type="radio" name="q12"/> 🤔 Jawaharlal Nehru</label>
-            <label class="opt-label" onclick="selectOpt(this,'q12-group')"><input type="radio" name="q12"/> 🎬 Dhruv Rathee (Namaskar Dosto🙏🏻)</label>
-            <label class="opt-label" onclick="selectOpt(this,'q12-group')"><input type="radio" name="q12"/> 😶 I don't know</label>
+            <label class="opt-label" onclick="selectOpt(this,'q12-group'); playQ12OptionThreeAudio()"><input type="radio" name="q12"/> 🎬 Dhruv Rathee (Namaskar Dosto🙏🏻)</label>
+            <label class="opt-label" onclick="selectOpt(this,'q12-group'); playModiOptionAudio()"><input type="radio" name="q12"/> 😶 Modi Ji</label>
           </div>
         </div>
 
@@ -877,7 +965,7 @@ body.overlay-lock {
             <label class="opt-label" onclick="selectOpt(this,'q13-group')"><input type="radio" name="q13"/> 395 (original)</label>
             <label class="opt-label" onclick="selectOpt(this,'q13-group')"><input type="radio" name="q13"/> 448 (current)</label>
             <label class="opt-label" onclick="selectOpt(this,'q13-group')"><input type="radio" name="q13"/> 100 (kitna padhe itna!)</label>
-            <label class="opt-label" onclick="selectOpt(this,'q13-group')"><input type="radio" name="q13"/> I thought it's 420 😂</label>
+            <label class="opt-label" onclick="selectOpt(this,'q13-group')"><input type="radio" name="q13"/> Mujhe laga 420 hai 😂</label>
           </div>
         </div>
 
@@ -888,13 +976,13 @@ body.overlay-lock {
             <span class="q-num">14</span> If the Constitution was a Bollywood movie, what would it be called?
             <span class="q-funny">Thodi mehnat karo sochne me! "Jai Hind" is too easy. 🎬</span>
           </label>
-          <textarea class="q-textarea" id="q14" placeholder='E.g., "Article 370 – Ek Pyaar Ki Kahani" or "Fundamental Rights - Bhaag DK Bose Bhaag!" 😂' style="min-height:70px;"></textarea>
+          <textarea class="q-textarea" id="q14" placeholder='E.g., "Article 370 – Ek Pyaar Ki Kahani" or "Gender Equality - The Biggest Mystery!" 😐' style="min-height:70px;"></textarea>
         </div>
 
         <div class="nav-buttons">
           <button class="nav-btn prev" onclick="goPrev()">← Pichhe</button>
           <div style="display:flex; align-items:center; gap:16px;">
-            <button class="nav-btn next" onclick="goNext()">Aage Le →</button>
+            <button class="nav-btn next" onclick="goNext()">Next →</button>
           </div>
         </div>
       </div>
@@ -907,7 +995,7 @@ body.overlay-lock {
           <span class="page-icon">🫡</span>
           <div class="page-title-wrap">
             <div class="page-subtitle">Section 3</div>
-            <h2>Maulik Kartavya — Duties? Kya Hota Hai? 😅</h2>
+            <h2>Maulik Kartavya — Duties? Kya Hota Hai? 🤔</h2>
           </div>
         </div>
         <p class="q-funny" style="margin-left:0; margin-bottom:18px;">
@@ -932,11 +1020,11 @@ body.overlay-lock {
         <div class="q-group">
           <label class="q-label">
             <span class="q-num">16</span> Do you follow your duties as a responsible citizen?
-            <span class="q-funny">Vijay Mallya, Nirav Modi and Mehul Choksi have left the group. ✈️</span>
+            <span class="q-funny">Vijay Mallya, Nirav Modi and Mehul Choksi have left the GC. ✈️</span>
           </label>
           <div class="yn-wrap">
             <button class="yn-btn yes" onclick="selectYN(this,'q22','Always')">😇 Always! Model citizen!</button>
-            <button class="yn-btn maybe" onclick="selectYN(this,'q22','Sometimes')">🤷 Time se Dhruv ki videos dekh leta hu</button>
+            <button class="yn-btn maybe" onclick="selectYN(this,'q22','Sometimes'); playQ16OptionTwoAudio()">🤷 Time se Dhruv Rathee ki videos dekh leta hu</button>
             <button class="yn-btn no" onclick="selectYN(this,'q22','Be honest')">😬 Mujhe bhi pata nahi kya karein</button>
           </div>
           <input type="hidden" id="q22" value=""/>
@@ -950,12 +1038,12 @@ body.overlay-lock {
             <span class="q-funny">Choose wisely. Your answer will be judged... just kidding. Or am I? 😈</span>
           </label>
           <div class="options-grid">
-            <label class="opt-label" onclick="selectOpt(this,'q23-group')"><input type="radio" name="q23"/> 🇮🇳 Respect the National Flag & Anthem</label>
-            <label class="opt-label" onclick="selectOpt(this,'q23-group')"><input type="radio" name="q23"/> 🌿 Protect the Environment</label>
-            <label class="opt-label" onclick="selectOpt(this,'q23-group')"><input type="radio" name="q23"/> 🤝 Promote Harmony & Brotherhood</label>
-            <label class="opt-label" onclick="selectOpt(this,'q23-group')"><input type="radio" name="q23"/> 🗳️ Participate in Democracy (Vote!)</label>
-            <label class="opt-label" onclick="selectOpt(this,'q23-group')"><input type="radio" name="q23"/> 💰 Pay your taxes (RIP salaries)</label>
-            <label class="opt-label" onclick="selectOpt(this,'q23-group')"><input type="radio" name="q23"/> 🔬 Develop scientific temper (Delete WhatsApp fwds!)</label>
+            <label class="opt-label" onclick="selectOpt(this,'q23-group'); playQ17IlluminatiVideo()"><input type="radio" name="q23"/> 🇮🇳 Respect the National Flag & Anthem</label>
+            <label class="opt-label" onclick="selectOpt(this,'q23-group'); playQ17IlluminatiVideo()"><input type="radio" name="q23"/> 🌿 Protect the Environment</label>
+            <label class="opt-label" onclick="selectOpt(this,'q23-group'); playQ17IlluminatiVideo()"><input type="radio" name="q23"/> 🤝 Promote Harmony & Brotherhood</label>
+            <label class="opt-label" onclick="selectOpt(this,'q23-group'); playQ17IlluminatiVideo()"><input type="radio" name="q23"/> 🗳️ Participate in Democracy (Vote!)</label>
+            <label class="opt-label" onclick="selectOpt(this,'q23-group'); playQ17IlluminatiVideo()"><input type="radio" name="q23"/> 💰 Pay your taxes (RIP salaries)</label>
+            <label class="opt-label" onclick="selectOpt(this,'q23-group'); playQ17IlluminatiVideo()"><input type="radio" name="q23"/> 🔬 Develop scientific temper (Delete WhatsApp fwds!)</label>
           </div>
         </div>
 
@@ -970,7 +1058,7 @@ body.overlay-lock {
             <label class="opt-label" onclick="selectOpt(this,'q24-group')"><input type="radio" name="q24"/> 🏟️ Stand up & sing with full josh!</label>
             <label class="opt-label" onclick="selectOpt(this,'q24-group')"><input type="radio" name="q24"/> 😐 Stand silently (too shy to sing)</label>
             <label class="opt-label" onclick="selectOpt(this,'q24-group')"><input type="radio" name="q24"/> 🎬 Grudgingly stand at cinema</label>
-            <label class="opt-label" onclick="selectOpt(this,'q24-group')"><input type="radio" name="q24"/> 😅 I quietly sneak out before it plays (Abdul💣)</label>
+            <label class="opt-label" onclick="selectOpt(this,'q24-group'); playQ18OptionFourAudio()"><input type="radio" name="q24"/> 😅 I quietly sneak out before it plays (Abdul💣)</label>
           </div>
         </div>
 
@@ -1026,7 +1114,7 @@ body.overlay-lock {
           </label>
           <div class="yn-wrap">
             <button class="yn-btn yes" onclick="selectYN(this,'q27','Yes - Absolutely')">🌟 Yes, we've come far!</button>
-            <button class="yn-btn no" onclick="selectYN(this,'q27','No - Far from it')">💔 Bahut gap hai abhi bhi</button>
+            <button class="yn-btn no" onclick="selectYN(this,'q27','No - Far from it'); playQ21OptionTwoAudio()">😡 JEE ke baare me ek sabd nhi sununga</button>
             <button class="yn-btn maybe" onclick="selectYN(this,'q27','Getting better')">🚀 Getting better, slowly</button>
           </div>
           <input type="hidden" id="q27" value=""/>
@@ -1057,7 +1145,7 @@ body.overlay-lock {
           <div class="yn-wrap">
             <button class="yn-btn yes" onclick="selectYN(this,'q29','Yes')">⚖️ Yes, fair for all</button>
             <button class="yn-btn no" onclick="selectYN(this,'q29','No')">❌ Depends on your connections</button>
-            <button class="yn-btn maybe" onclick="selectYN(this,'q29','Sometimes')">😡 RGKAR wale case me kuch hua?</button>
+            <button class="yn-btn maybe" onclick="selectYN(this,'q29','Sometimes')">😡 Ha essay hee toh bas likhna hai</button>
           </div>
           <input type="hidden" id="q29" value=""/>
         </div>
@@ -1070,9 +1158,9 @@ body.overlay-lock {
             <span class="q-funny">Tera response hamare paas stored rahega toh soch-samajh ke boliyo jo bolna hai 🐦‍🔥</span>
           </label>
           <div class="options-grid">
-            <label class="opt-label" onclick="selectOpt(this,'q30-group')"><input type="radio" name="q30"/> 👍 Necessary and should continue</label>
-            <label class="opt-label" onclick="selectOpt(this,'q30-group')"><input type="radio" name="q30"/> 🔄 Should be reviewed/reformed</label>
-            <label class="opt-label" onclick="selectOpt(this,'q30-group')"><input type="radio" name="q30"/> ❓ I need to read more before judging</label>
+            <label class="opt-label" onclick="selectOpt(this,'q30-group'); playQ24TopThreeOptionsAudio()"><input type="radio" name="q30"/> 👍 Necessary and should continue</label>
+            <label class="opt-label" onclick="selectOpt(this,'q30-group'); playQ24TopThreeOptionsAudio()"><input type="radio" name="q30"/> 🔄 Should be reviewed/reformed</label>
+            <label class="opt-label" onclick="selectOpt(this,'q30-group'); playQ24TopThreeOptionsAudio()"><input type="radio" name="q30"/> ❓ I need to read more before judging</label>
             <label class="opt-label" onclick="selectOpt(this,'q30-group')"><input type="radio" name="q30"/> 🤐 No opinion (wisest answer!)</label>
           </div>
         </div>
@@ -1186,9 +1274,9 @@ body.overlay-lock {
             <span class="q-funny">Both are constitutionally fine. But you'd never know that from your news channel. 📺</span>
           </label>
           <div class="yn-wrap">
-            <button class="yn-btn yes" onclick="selectYN(this,'q41','Yes - It gets too political')">😤 Yes, constitution gets weaponized</button>
-            <button class="yn-btn no" onclick="selectYN(this,'q41','No - Its normal debate')">🤝 No, healthy debate is fine</button>
-            <button class="yn-btn maybe" onclick="selectYN(this,'q41','No Comment')">🤐 Bhai, main ye nahi sununga</button>
+            <button class="yn-btn yes" onclick="selectYN(this,'q41','Yes - It gets too political'); playQ30OptionOneTwoAudio()">🚩 Jai Shree Ram</button>
+            <button class="yn-btn no" onclick="selectYN(this,'q41','No - Its normal debate'); playQ30OptionOneTwoAudio()">🤝 No, healthy debate is fine</button>
+            <a class="yn-btn maybe" href="samvidhan-message.html" onclick="selectYN(this,'q41','No Comment'); stopQ30OptionOneTwoMedia()">🤐 Mai Jai Hind nhi bolunga</a>
           </div>
           <input type="hidden" id="q41" value=""/>
         </div>
@@ -1325,7 +1413,7 @@ body.overlay-lock {
     <strong>बहुत बढ़िया! 🙏</strong><br/>
     आपने यह सर्वे पूरा किया — इसका मतलब आप सच में देश के बारे में सोचते हैं।<br/>
     वरना लोग तो बीच में ही छोड़ देते, जैसा उसने छोड़ा था। 😂<br/><br/>
-    <strong>संविधान कहता है:</strong> "हम भारत के लोग..." — और आप उन लोगों में से हैं जो सुनते हैं! 🇮🇳<br/><br/>
+    <strong>संविधान कहता है:</strong> "हम भारत के लोग..." — और आप उन लोगों में से हैं जो सुनते हैं!<br/><br/>
     अब जाइए — <em>पहले Constitution पढ़िए, फिर Instagram!</em> 📜❤️
   </div>
   <div style="font-size: 1.8rem; margin: 16px 0;">
@@ -1369,6 +1457,141 @@ let recordingSeconds = 0;
 let isRecording = false;
 let q28EffectTimers = [];
 let q28TypingTimer = null;
+const MODI_OPTION_AUDIO_FILE = 'assets/music/अङ्गेन_गात्रं_नयनेन_वक्त्रं।_न्यायेन_राज्यं_लवणेन_भोज्यम्.mp3';
+const Q12_OPTION_THREE_AUDIO_FILE = 'assets/music/Namaskar Dosto.mp3';
+const Q16_OPTION_TWO_AUDIO_FILE = 'assets/music/Modi Jii ne war rukwa di Papa.mp3';
+const Q18_OPTION_FOUR_AUDIO_FILE = 'assets/music/Alhamdulillah.mp3';
+const Q21_OPTION_TWO_AUDIO_FILE = 'assets/music/Kyu nahi ho rahi padhai.mp3';
+const Q24_TOP_THREE_OPTIONS_AUDIO_FILE = 'assets/music/Jai Bheem.mp3';
+const Q30_OPTION_ONE_TWO_AUDIO_FILE = 'assets/music/Bajrang Dal.mp3';
+const Q30_OPTION_ONE_TWO_IMAGE_FILE = 'assets/icons/Bajrang Dal.jpeg';
+const Q22_FUTURE_AUDIO_FILE = 'assets/music/Andhera Kayam Rahe.mp3';
+const THANK_YOU_RAHUL_AUDIO_FILE = 'assets/music/Rahul Gandhi.mp3';
+const Q17_ILLUMINATI_VIDEO_FILE = 'assets/gifs/Iluminati.mp4';
+let modiOptionAudio = null;
+let q12OptionThreeAudio = null;
+let q16OptionTwoAudio = null;
+let q18OptionFourAudio = null;
+let q21OptionTwoAudio = null;
+let q24TopThreeOptionsAudio = null;
+let q30OptionOneTwoAudio = null;
+let q22FutureAudio = null;
+let thankYouRahulAudio = null;
+let thankYouAudioTimer = null;
+let q30BajrangOverlay = null;
+let q30BajrangOverlayImage = null;
+let q30OverlayShowTimer = null;
+let q30ImageShowTimer = null;
+let q17IlluminatiVideo = null;
+let q17VideoOverlay = null;
+
+const mandatoryOptionQuestions = {
+  1: [
+    { type: 'radio', name: 'gender', label: 'Q3 - Gender' },
+    { type: 'email', id: 'email', label: 'Q4 - Email ID' },
+    { type: 'radio', name: 'course', label: 'Q5 - Course / Stream' },
+    { type: 'select', id: 'year', label: 'Q7 - Year / Semester' },
+  ],
+  2: [
+    { type: 'hidden', id: 'q8', label: 'Q8 - Constitution awareness' },
+    { type: 'hidden', id: 'q9', label: 'Q9 - Studied constitutional values' },
+    { type: 'radio', name: 'q11', label: 'Q11 - Constitution effective date' },
+    { type: 'radio', name: 'q12', label: 'Q12 - Father of Constitution' },
+    { type: 'radio', name: 'q13', label: 'Q13 - Number of Articles' },
+  ],
+  3: [
+    { type: 'hidden', id: 'q21', label: 'Q15 - Aware of Fundamental Duties' },
+    { type: 'hidden', id: 'q22', label: 'Q16 - Follow duties' },
+    { type: 'radio', name: 'q23', label: 'Q17 - Most important duty' },
+    { type: 'radio', name: 'q24', label: 'Q18 - National Anthem respect' },
+    { type: 'hidden', id: 'q25', label: 'Q19 - Public property / littering' },
+  ],
+  4: [
+    { type: 'hidden', id: 'q27', label: 'Q21 - Equal opportunities' },
+    { type: 'hidden', id: 'q28', label: 'Q22 - Discrimination experience' },
+    { type: 'hidden', id: 'q29', label: 'Q23 - Laws fairness' },
+    { type: 'radio', name: 'q30', label: 'Q24 - Reservation opinion' },
+    { type: 'hidden', id: 'q31', label: 'Q25 - Pride rating' },
+  ],
+  5: [
+    { type: 'hidden', id: 'q37', label: 'Q26 - Awareness in India' },
+    { type: 'hidden', id: 'q38', label: 'Q27 - Teach more in schools' },
+    { type: 'radio', name: 'q39', label: 'Q28 - Best awareness method' },
+    { type: 'hidden', id: 'q40', label: 'Q29 - Constitution interest rating' },
+    { type: 'hidden', id: 'q41', label: 'Q30 - Politicization opinion' },
+  ],
+  6: [
+    { type: 'hidden', id: 'q42', label: 'Q31 - Daily life importance rating' },
+    { type: 'hidden', id: 'survey-rating', label: 'Overall survey experience rating' },
+  ],
+};
+
+function isOptionRuleAnswered(rule, pageEl) {
+  if (rule.type === 'radio') {
+    return !!pageEl.querySelector(`input[name="${rule.name}"]:checked`);
+  }
+
+  const field = document.getElementById(rule.id);
+  if (!field) return false;
+
+  if (rule.type === 'email') {
+    const value = String(field.value || '').trim();
+    return value !== '' && field.checkValidity();
+  }
+
+  return String(field.value || '').trim() !== '';
+}
+
+function getRuleGroupElement(rule, pageEl) {
+  if (rule.type === 'radio') {
+    const input = pageEl.querySelector(`input[name="${rule.name}"]`);
+    return input ? input.closest('.q-group') : null;
+  }
+
+  const field = document.getElementById(rule.id);
+  return field ? field.closest('.q-group') : null;
+}
+
+function clearGroupValidationError(el) {
+  const group = el?.closest?.('.q-group');
+  if (group) group.classList.remove('validation-error');
+}
+
+function validateOptionQuestionsForPage(pageNumber) {
+  const rules = mandatoryOptionQuestions[pageNumber] || [];
+  if (!rules.length) return true;
+
+  const pageEl = document.getElementById(`page-${pageNumber}`);
+  if (!pageEl) return true;
+
+  pageEl.querySelectorAll('.q-group.validation-error').forEach(group => {
+    group.classList.remove('validation-error');
+  });
+
+  const missingLabels = [];
+
+  rules.forEach(rule => {
+    if (isOptionRuleAnswered(rule, pageEl)) return;
+
+    missingLabels.push(rule.label);
+    const groupEl = getRuleGroupElement(rule, pageEl);
+    if (groupEl) groupEl.classList.add('validation-error');
+  });
+
+  if (!missingLabels.length) return true;
+
+  alert(
+    'Please complete all mandatory questions on this page before continuing:\n\n' +
+    missingLabels.map(label => `- ${label}`).join('\n')
+  );
+
+  const firstError = pageEl.querySelector('.q-group.validation-error');
+  if (firstError) {
+    firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  return false;
+}
 
 /* ============================================================
    DOTS
@@ -1383,6 +1606,7 @@ function buildDots() {
    ============================================================ */
 function goNext() {
   if (currentPage >= totalPages - 1) return;
+  if (!validateOptionQuestionsForPage(currentPage)) return;
   animateTransition(currentPage, currentPage + 1, 'forward');
 }
 
@@ -1460,6 +1684,238 @@ function selectOpt(el, groupName) {
   parent.querySelectorAll('.opt-label').forEach(l => l.classList.remove('selected'));
   el.classList.add('selected');
   el.querySelector('input').checked = true;
+  clearGroupValidationError(el);
+}
+
+function playModiOptionAudio() {
+  try {
+    if (!modiOptionAudio) {
+      modiOptionAudio = new Audio(encodeURI(MODI_OPTION_AUDIO_FILE));
+      modiOptionAudio.preload = 'auto';
+    }
+
+    modiOptionAudio.pause();
+    modiOptionAudio.currentTime = 0;
+    const playPromise = modiOptionAudio.play();
+    if (playPromise && typeof playPromise.catch === 'function') {
+      playPromise.catch(() => {});
+    }
+  } catch (err) {
+    console.warn('Modi option audio failed:', err);
+  }
+}
+
+function playQ16OptionTwoAudio() {
+  try {
+    if (!q16OptionTwoAudio) {
+      q16OptionTwoAudio = new Audio(encodeURI(Q16_OPTION_TWO_AUDIO_FILE));
+      q16OptionTwoAudio.preload = 'auto';
+    }
+
+    q16OptionTwoAudio.pause();
+    q16OptionTwoAudio.currentTime = 0;
+    const playPromise = q16OptionTwoAudio.play();
+    if (playPromise && typeof playPromise.catch === 'function') {
+      playPromise.catch(() => {});
+    }
+  } catch (err) {
+    console.warn('Q16 option audio failed:', err);
+  }
+}
+
+function playQ12OptionThreeAudio() {
+  try {
+    if (!q12OptionThreeAudio) {
+      q12OptionThreeAudio = new Audio(encodeURI(Q12_OPTION_THREE_AUDIO_FILE));
+      q12OptionThreeAudio.preload = 'auto';
+    }
+
+    q12OptionThreeAudio.pause();
+    q12OptionThreeAudio.currentTime = 0;
+    const playPromise = q12OptionThreeAudio.play();
+    if (playPromise && typeof playPromise.catch === 'function') {
+      playPromise.catch(() => {});
+    }
+  } catch (err) {
+    console.warn('Q12 option audio failed:', err);
+  }
+}
+
+function playQ18OptionFourAudio() {
+  try {
+    if (!q18OptionFourAudio) {
+      q18OptionFourAudio = new Audio(encodeURI(Q18_OPTION_FOUR_AUDIO_FILE));
+      q18OptionFourAudio.preload = 'auto';
+    }
+
+    q18OptionFourAudio.pause();
+    q18OptionFourAudio.currentTime = 0;
+    const playPromise = q18OptionFourAudio.play();
+    if (playPromise && typeof playPromise.catch === 'function') {
+      playPromise.catch(() => {});
+    }
+  } catch (err) {
+    console.warn('Q18 option audio failed:', err);
+  }
+}
+
+function playQ21OptionTwoAudio() {
+  try {
+    if (!q21OptionTwoAudio) {
+      q21OptionTwoAudio = new Audio(encodeURI(Q21_OPTION_TWO_AUDIO_FILE));
+      q21OptionTwoAudio.preload = 'auto';
+    }
+
+    q21OptionTwoAudio.pause();
+    q21OptionTwoAudio.currentTime = 0;
+    const playPromise = q21OptionTwoAudio.play();
+    if (playPromise && typeof playPromise.catch === 'function') {
+      playPromise.catch(() => {});
+    }
+  } catch (err) {
+    console.warn('Q21 option audio failed:', err);
+  }
+}
+
+function playQ24TopThreeOptionsAudio() {
+  try {
+    if (!q24TopThreeOptionsAudio) {
+      q24TopThreeOptionsAudio = new Audio(encodeURI(Q24_TOP_THREE_OPTIONS_AUDIO_FILE));
+      q24TopThreeOptionsAudio.preload = 'auto';
+    }
+
+    q24TopThreeOptionsAudio.pause();
+    q24TopThreeOptionsAudio.currentTime = 0;
+    const playPromise = q24TopThreeOptionsAudio.play();
+    if (playPromise && typeof playPromise.catch === 'function') {
+      playPromise.catch(() => {});
+    }
+  } catch (err) {
+    console.warn('Q24 options audio failed:', err);
+  }
+}
+
+function clearQ30OverlayShowTimer() {
+  if (q30OverlayShowTimer) {
+    clearTimeout(q30OverlayShowTimer);
+    q30OverlayShowTimer = null;
+  }
+}
+
+function clearQ30ImageShowTimer() {
+  if (q30ImageShowTimer) {
+    clearTimeout(q30ImageShowTimer);
+    q30ImageShowTimer = null;
+  }
+}
+
+function closeQ30BajrangOverlay() {
+  q30BajrangOverlay = q30BajrangOverlay || document.getElementById('q30-bajrang-overlay');
+  if (!q30BajrangOverlay) return;
+
+  clearQ30OverlayShowTimer();
+  clearQ30ImageShowTimer();
+
+  q30BajrangOverlay.classList.remove('active', 'image-visible');
+  q30BajrangOverlay.setAttribute('aria-hidden', 'true');
+
+  const futureOverlayActive = document.getElementById('future-overlay')?.classList.contains('active');
+  const q17OverlayActive = document.getElementById('q17-video-overlay')?.classList.contains('active');
+  if (!futureOverlayActive && !q17OverlayActive) {
+    document.body.classList.remove('overlay-lock');
+  }
+}
+
+function showQ30BajrangOverlay() {
+  q30BajrangOverlay = q30BajrangOverlay || document.getElementById('q30-bajrang-overlay');
+  q30BajrangOverlayImage = q30BajrangOverlayImage || document.getElementById('q30-bajrang-overlay-image');
+  if (!q30BajrangOverlay || !q30BajrangOverlayImage) return;
+
+  if (!q30BajrangOverlayImage.src) {
+    q30BajrangOverlayImage.src = encodeURI(Q30_OPTION_ONE_TWO_IMAGE_FILE);
+  }
+
+  clearQ30ImageShowTimer();
+  q30BajrangOverlay.classList.remove('active', 'image-visible');
+  q30BajrangOverlay.setAttribute('aria-hidden', 'true');
+  void q30BajrangOverlay.offsetWidth;
+
+  document.body.classList.add('overlay-lock');
+  q30BajrangOverlay.classList.add('active');
+  q30BajrangOverlay.setAttribute('aria-hidden', 'false');
+
+  q30ImageShowTimer = setTimeout(() => {
+    if (!q30BajrangOverlay) return;
+    q30BajrangOverlay.classList.add('image-visible');
+    q30ImageShowTimer = null;
+  }, 3250);
+}
+
+function stopQ30OptionOneTwoMedia() {
+  if (q30OptionOneTwoAudio) {
+    q30OptionOneTwoAudio.pause();
+    q30OptionOneTwoAudio.currentTime = 0;
+  }
+  closeQ30BajrangOverlay();
+}
+
+function playQ30OptionOneTwoAudio() {
+  try {
+    if (!q30OptionOneTwoAudio) {
+      q30OptionOneTwoAudio = new Audio(encodeURI(Q30_OPTION_ONE_TWO_AUDIO_FILE));
+      q30OptionOneTwoAudio.preload = 'auto';
+    }
+
+    closeQ30BajrangOverlay();
+    q30OptionOneTwoAudio.pause();
+    q30OptionOneTwoAudio.currentTime = 0;
+    q30OptionOneTwoAudio.onplaying = () => {
+      clearQ30OverlayShowTimer();
+      q30OverlayShowTimer = setTimeout(() => {
+        showQ30BajrangOverlay();
+        q30OverlayShowTimer = null;
+      }, 5000);
+      q30OptionOneTwoAudio.onplaying = null;
+    };
+    q30OptionOneTwoAudio.onended = closeQ30BajrangOverlay;
+
+    const playPromise = q30OptionOneTwoAudio.play();
+    if (playPromise && typeof playPromise.catch === 'function') {
+      playPromise.catch(() => {
+        closeQ30BajrangOverlay();
+      });
+    }
+  } catch (err) {
+    console.warn('Q30 option audio failed:', err);
+  }
+}
+
+function closeQ17IlluminatiVideo() {
+  if (!q17VideoOverlay || !q17IlluminatiVideo) return;
+
+  q17IlluminatiVideo.pause();
+  q17IlluminatiVideo.currentTime = 0;
+  q17VideoOverlay.classList.remove('active');
+  q17VideoOverlay.setAttribute('aria-hidden', 'true');
+}
+
+function playQ17IlluminatiVideo() {
+  q17IlluminatiVideo = q17IlluminatiVideo || document.getElementById('q17-video');
+  q17VideoOverlay = q17VideoOverlay || document.getElementById('q17-video-overlay');
+  if (!q17IlluminatiVideo || !q17VideoOverlay) return;
+
+  if (!q17IlluminatiVideo.src) {
+    q17IlluminatiVideo.src = encodeURI(Q17_ILLUMINATI_VIDEO_FILE);
+  }
+
+  q17VideoOverlay.classList.add('active');
+  q17VideoOverlay.setAttribute('aria-hidden', 'false');
+  q17IlluminatiVideo.currentTime = 0;
+
+  const playPromise = q17IlluminatiVideo.play();
+  if (playPromise && typeof playPromise.catch === 'function') {
+    playPromise.catch(() => {});
+  }
 }
 
 function toggleMulti(event, el) {
@@ -1483,6 +1939,7 @@ function selectYN(el, id, val) {
   wrap.querySelectorAll('.yn-btn').forEach(b => b.classList.remove('selected'));
   el.classList.add('selected');
   document.getElementById(id).value = val;
+  clearGroupValidationError(el);
 }
 
 function clearQ28EffectTimers() {
@@ -1492,6 +1949,28 @@ function clearQ28EffectTimers() {
     clearInterval(q28TypingTimer);
     q28TypingTimer = null;
   }
+  if (q22FutureAudio) {
+    q22FutureAudio.pause();
+    q22FutureAudio.currentTime = 0;
+    q22FutureAudio.onended = null;
+  }
+}
+
+function closeQ28FutureOverlay() {
+  const overlay = document.getElementById('future-overlay');
+  const message = document.getElementById('future-message');
+
+  if (overlay) {
+    overlay.classList.remove('active', 'show-text');
+    overlay.setAttribute('aria-hidden', 'true');
+  }
+
+  if (message) {
+    message.classList.remove('typing');
+    message.textContent = '';
+  }
+
+  document.body.classList.remove('overlay-lock');
 }
 
 function typeFutureMessage(el, text, speed = 95) {
@@ -1521,19 +2000,34 @@ function runQ28FutureEffect() {
 
   document.body.classList.add('overlay-lock');
   overlay.classList.add('active');
+  overlay.setAttribute('aria-hidden', 'false');
 
   q28EffectTimers.push(setTimeout(() => {
-    overlay.classList.add('show-text');
-    message.classList.add('typing');
-    typeFutureMessage(message, 'Welcome to Future');
-  }, 4500));
+    try {
+      if (!q22FutureAudio) {
+        q22FutureAudio = new Audio(encodeURI(Q22_FUTURE_AUDIO_FILE));
+        q22FutureAudio.preload = 'auto';
+      }
 
-  q28EffectTimers.push(setTimeout(() => {
-    overlay.classList.remove('active', 'show-text');
-    message.classList.remove('typing');
-    message.textContent = 'Welcome to Future';
-    document.body.classList.remove('overlay-lock');
-  }, 9000));
+      q22FutureAudio.pause();
+      q22FutureAudio.currentTime = 0;
+      q22FutureAudio.onended = closeQ28FutureOverlay;
+
+      const playPromise = q22FutureAudio.play();
+      if (playPromise && typeof playPromise.catch === 'function') {
+        playPromise.catch(() => {
+          q28EffectTimers.push(setTimeout(() => {
+            closeQ28FutureOverlay();
+          }, 1200));
+        });
+      }
+    } catch (err) {
+      console.warn('Q22 future audio failed:', err);
+      q28EffectTimers.push(setTimeout(() => {
+        closeQ28FutureOverlay();
+      }, 1200));
+    }
+  }, 2500));
 }
 
 function handleQ28Selection(el, val) {
@@ -1545,6 +2039,7 @@ function selectScale(el, scaleId, val) {
   const wrap = document.getElementById(scaleId);
   wrap.querySelectorAll('.scale-btn').forEach(b => b.classList.remove('selected'));
   el.classList.add('selected');
+  clearGroupValidationError(el);
   // Find hidden input with id = first part of scaleId
   const inputId = scaleId.replace('-scale','');
   const inp = document.getElementById(inputId);
@@ -1750,7 +2245,7 @@ function collectData() {
     name:    document.getElementById('name')?.value || '',
     age:     document.getElementById('age')?.value || '',
     gender:  getRadio('gender'),
-    city:    document.getElementById('city')?.value || '',
+    email:   document.getElementById('email')?.value || '',
     course:  getRadio('course'),
     college: document.getElementById('college')?.value || '',
     year:    document.getElementById('year')?.value || '',
@@ -1812,7 +2307,7 @@ Submitted at: ${d.timestamp}
 Name:    ${d.name}
 Age:     ${d.age}
 Gender:  ${d.gender}
-City:    ${d.city}
+Email:   ${d.email}
 Course:  ${d.course}
 College: ${d.college}
 Year:    ${d.year}
@@ -1872,6 +2367,8 @@ Jai Hind! 🇮🇳
    SUBMIT SURVEY
    ============================================================ */
 async function submitSurvey() {
+  if (!validateOptionQuestionsForPage(currentPage)) return;
+
   const data = collectData();
   const body = formatEmailBody(data);
 
@@ -1895,7 +2392,8 @@ async function submitSurvey() {
     // Individual fields for template variables if needed
     name:          data.name,
     age:           data.age,
-    city:          data.city,
+    email:         data.email,
+    city:          data.email,
     course:        data.course,
     year:          data.year,
   };
@@ -1920,6 +2418,30 @@ function showThankYou(emailFailed = false) {
     ty.querySelector('.ty-footer').innerHTML +=
       '<br/><span style="color:#e74c3c; font-size:0.8rem;">⚠️ Note: Email delivery had an issue. Please contact your EmailJS settings.</span>';
   }
+
+  if (thankYouAudioTimer) {
+    clearTimeout(thankYouAudioTimer);
+    thankYouAudioTimer = null;
+  }
+
+  thankYouAudioTimer = setTimeout(() => {
+    try {
+      if (!thankYouRahulAudio) {
+        thankYouRahulAudio = new Audio(encodeURI(THANK_YOU_RAHUL_AUDIO_FILE));
+        thankYouRahulAudio.preload = 'auto';
+      }
+
+      thankYouRahulAudio.pause();
+      thankYouRahulAudio.currentTime = 0;
+      const playPromise = thankYouRahulAudio.play();
+      if (playPromise && typeof playPromise.catch === 'function') {
+        playPromise.catch(() => {});
+      }
+    } catch (err) {
+      console.warn('Thank you audio failed:', err);
+    }
+  }, 1000);
+
   // Confetti burst
   createConfetti();
 }
@@ -1961,6 +2483,44 @@ function createConfetti() {
 /* ============================================================
    INIT
    ============================================================ */
+const yearSelect = document.getElementById('year');
+if (yearSelect) {
+  yearSelect.addEventListener('change', () => clearGroupValidationError(yearSelect));
+}
+
+const emailInput = document.getElementById('email');
+if (emailInput) {
+  emailInput.addEventListener('input', () => clearGroupValidationError(emailInput));
+}
+
+q17IlluminatiVideo = document.getElementById('q17-video');
+q17VideoOverlay = document.getElementById('q17-video-overlay');
+const q17VideoClose = document.getElementById('q17-video-close');
+
+if (q17IlluminatiVideo) {
+  q17IlluminatiVideo.src = encodeURI(Q17_ILLUMINATI_VIDEO_FILE);
+  q17IlluminatiVideo.addEventListener('ended', closeQ17IlluminatiVideo);
+}
+
+if (q17VideoOverlay) {
+  q17VideoOverlay.addEventListener('click', (event) => {
+    if (event.target === q17VideoOverlay) {
+      closeQ17IlluminatiVideo();
+    }
+  });
+}
+
+if (q17VideoClose) {
+  q17VideoClose.addEventListener('click', closeQ17IlluminatiVideo);
+}
+
+q30BajrangOverlay = document.getElementById('q30-bajrang-overlay');
+q30BajrangOverlayImage = document.getElementById('q30-bajrang-overlay-image');
+
+if (q30BajrangOverlayImage) {
+  q30BajrangOverlayImage.src = encodeURI(Q30_OPTION_ONE_TWO_IMAGE_FILE);
+}
+
 updateProgress();
 </script>
 </body>
