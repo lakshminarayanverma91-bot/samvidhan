@@ -772,11 +772,11 @@ body.overlay-lock {
         <div class="cover-page">
           <span class="chakra">☸️</span>
           <h2>Welcome to the<br/>Samvidhan Survey!</h2>
-          <p class="tagline">"Jaago Nagrik Jaago — Constitution Padho! Reel baad me dekh lena"</p>
+          <p class="tagline">"Jaago Nagrik Jaago — Constitution Padho! Reel baad me dekhna"</p>
           <div class="cover-desc">
-            <strong>Namaste from Future Mayor! 🙏</strong><br/>
-            This is a fun (and slightly sneaky) survey to check how much you actually know about the Indian Constitution — 
-            vs. how much you think you know from that one WhatsApp forward your Vidhayak Chacha sent.<br/><br/>
+            <strong>Namaste 🙏</strong><br/>
+            This is a fun survey (unlike boring Google Forms) to check how much you actually know about the Indian Constitution — 
+            vs. how much you think you know from that one WhatsApp forward.<br/><br/>
             Don't worry, there are no wrong answers. Except some. Please study. 😂
           </div>
           <div class="disclaimer">
@@ -806,12 +806,12 @@ body.overlay-lock {
           </div>
         </div>
         <p class="q-funny" style="margin-left:0; margin-bottom:18px;">
-          (Don't worry, we won't put your name in Epstein File. Or will we? 😈)
+          (Don't worry, we won't put your name in Scam. Or will we? 😈)
         </p>
 
         <div class="q-group">
           <label class="q-label"><span class="q-num">1</span> Your Good Name (as it appears on Aadhar, not as your mom calls you in anger)</label>
-          <input type="text" class="q-input" id="name" placeholder="e.g., Johnny 'The Plumber'"/>
+          <input type="text" class="q-input" id="name" placeholder="e.g., Sharukh Khan">
         </div>
 
         <div class="q-group">
@@ -851,17 +851,17 @@ body.overlay-lock {
 
         <div class="q-group">
           <label class="q-label"><span class="q-num">6</span> College / University Name</label>
-          <input type="text" class="q-input" id="college" placeholder="Name of your esteemed institution (ye mat kehna ki tum ANDC ke student ho)"/>
+          <input type="text" class="q-input" id="college" placeholder="Name of your esteemed institution"/>
         </div>
 
         <div class="q-group">
           <label class="q-label"><span class="q-num">7</span> Year / Semester</label>
           <select class="q-select" id="year">
             <option value="">— Select Year —</option>
-            <option>1st Year (Nibba-Nibbi ke prem-kahani ki shuruat)</option><option>2nd Year</option><option>3rd Year (Abhi tak Single hee hu)</option>
-            <option>4th Year (Back aa gyi thi isliye abhi tak yhi hu)</option><option>5th Year (Respect!)</option>
-            <option>PG / Masters</option><option>PhD (Legend!)</option>
-            <option>Pass out / Working (Paisa hee paisa hai😁)</option>
+            <option>1st Year</option><option>2nd Year</option><option>3rd Year</option>
+            <option>4th Year</option><option>5th Year</option>
+            <option>PG / Masters</option><option>PhD</option>
+            <option>Pass out / Working</option>
           </select>
         </div>
 
@@ -889,7 +889,7 @@ body.overlay-lock {
         <div class="q-group">
           <label class="q-label">
             <span class="q-num">8</span> Do you know about the Constitution of India?
-            <span class="q-funny">Hint: It's not a Bollywood script, though it's equally dramatic like Anupamaa's Life 🎬</span>
+            <span class="q-funny">Hint: It's not a Bollywood script, though it's equally dramatic like Bollywood Movies 🎬</span>
           </label>
           <div class="yn-wrap">
             <button class="yn-btn yes" onclick="selectYN(this,'q8','Yes')">✅ Haan ji, bilkul!</button>
@@ -929,13 +929,13 @@ body.overlay-lock {
         <div class="q-group">
           <label class="q-label">
             <span class="q-num">11</span> Do you know when the Constitution of India came into effect?
-            <span class="q-funny">It's NOT the same date as your favorite cricketer, Chiku's birthday. 😅</span>
+            <span class="q-funny">It's NOT the same date as your favorite cricketer's birthday. 😅</span>
           </label>
           <div class="options-grid">
             <label class="opt-label" onclick="selectOpt(this,'q11-group')"><input type="radio" name="q11"/> 📅 26th January, 1950 ✓</label>
             <label class="opt-label" onclick="selectOpt(this,'q11-group')"><input type="radio" name="q11"/> 📅 15th August, 1947 (That's Independence Day bhai!)</label>
             <label class="opt-label" onclick="selectOpt(this,'q11-group')"><input type="radio" name="q11"/> 📅 26th November, 1949 (Constitution Day!)</label>
-            <label class="opt-label" onclick="selectOpt(this,'q11-group'); playModiOptionAudio()"><input type="radio" name="q11"/> 🤷 No idea, I thought Bhagwan Modi ji wrote it</label>
+            <label class="opt-label" onclick="selectOpt(this,'q11-group')"><input type="radio" name="q11"/> 🤷 No idea, I thought it was on my birthday</label>
           </div>
         </div>
 
@@ -943,14 +943,14 @@ body.overlay-lock {
 
         <div class="q-group">
           <label class="q-label">
-            <span class="q-num">12</span> Who is known as the "Father of the Indian Constitution"? <span class="dark-joke-badge">🎤 Trivia</span>
+            <span class="q-num">12</span> Who is known as the "Father of the Indian Constitution"?
             <span class="q-funny">Dark hint: He was not allowed to drink water at certain places in this very country. 💔</span>
           </label>
           <div class="options-grid cols-2">
-            <label class="opt-label" onclick="selectOpt(this,'q12-group'); playQ24TopThreeOptionsAudio()"><input type="radio" name="q12"/> 🙏 Dr. B.R. Ambedkar</label>
+            <label class="opt-label" onclick="selectOpt(this,'q12-group')"><input type="radio" name="q12"/> 🙏 Dr. B.R. Ambedkar</label>
             <label class="opt-label" onclick="selectOpt(this,'q12-group')"><input type="radio" name="q12"/> 🤔 Jawaharlal Nehru</label>
-            <label class="opt-label" onclick="selectOpt(this,'q12-group'); playQ12OptionThreeAudio()"><input type="radio" name="q12"/> 🎬 Dhruv Rathee (Namaskar Dosto🙏🏻)</label>
-            <label class="opt-label" onclick="selectOpt(this,'q12-group'); playModiOptionAudio()"><input type="radio" name="q12"/> 😶 Modi Ji</label>
+            <label class="opt-label" onclick="selectOpt(this,'q12-group')"><input type="radio" name="q12"/> 🕊️ Mahatma Gandhi</label>
+            <label class="opt-label" onclick="selectOpt(this,'q12-group')"><input type="radio" name="q12"/> 🔫 Chandra Shekhar Azad</label>
           </div>
         </div>
 
@@ -965,7 +965,7 @@ body.overlay-lock {
             <label class="opt-label" onclick="selectOpt(this,'q13-group')"><input type="radio" name="q13"/> 395 (original)</label>
             <label class="opt-label" onclick="selectOpt(this,'q13-group')"><input type="radio" name="q13"/> 448 (current)</label>
             <label class="opt-label" onclick="selectOpt(this,'q13-group')"><input type="radio" name="q13"/> 100 (kitna padhe itna!)</label>
-            <label class="opt-label" onclick="selectOpt(this,'q13-group')"><input type="radio" name="q13"/> Mujhe laga 420 hai 😂</label>
+            <label class="opt-label" onclick="selectOpt(this,'q13-group')"><input type="radio" name="q13"/> I thought 420 😂</label>
           </div>
         </div>
 
@@ -976,7 +976,7 @@ body.overlay-lock {
             <span class="q-num">14</span> If the Constitution was a Bollywood movie, what would it be called?
             <span class="q-funny">Thodi mehnat karo sochne me! "Jai Hind" is too easy. 🎬</span>
           </label>
-          <textarea class="q-textarea" id="q14" placeholder='E.g., "Article 370 – Ek Pyaar Ki Kahani" or "Gender Equality - The Biggest Mystery!" 😐' style="min-height:70px;"></textarea>
+          <textarea class="q-textarea" id="q14" placeholder='E.g., "Article 370 – Ek Pyaar Ki Kahani" 😐' style="min-height:70px;"></textarea>
         </div>
 
         <div class="nav-buttons">
@@ -998,9 +998,6 @@ body.overlay-lock {
             <h2>Maulik Kartavya — Duties? Kya Hota Hai? 🤔</h2>
           </div>
         </div>
-        <p class="q-funny" style="margin-left:0; margin-bottom:18px;">
-          (Rights lene ka shauk sab ko hai. Duties ki yaad sirf school assembly mein aati thi. 🙃)
-        </p>
 
         <div class="q-group">
           <label class="q-label">
@@ -1024,7 +1021,7 @@ body.overlay-lock {
           </label>
           <div class="yn-wrap">
             <button class="yn-btn yes" onclick="selectYN(this,'q22','Always')">😇 Always! Model citizen!</button>
-            <button class="yn-btn maybe" onclick="selectYN(this,'q22','Sometimes'); playQ16OptionTwoAudio()">🤷 Time se Dhruv Rathee ki videos dekh leta hu</button>
+            <button class="yn-btn maybe" onclick="selectYN(this,'q22','Sometimes')">🤔 Kabhi kabhi follow kar leta hu</button>
             <button class="yn-btn no" onclick="selectYN(this,'q22','Be honest')">😬 Mujhe bhi pata nahi kya karein</button>
           </div>
           <input type="hidden" id="q22" value=""/>
@@ -1038,12 +1035,12 @@ body.overlay-lock {
             <span class="q-funny">Choose wisely. Your answer will be judged... just kidding. Or am I? 😈</span>
           </label>
           <div class="options-grid">
-            <label class="opt-label" onclick="selectOpt(this,'q23-group'); playQ17IlluminatiVideo()"><input type="radio" name="q23"/> 🇮🇳 Respect the National Flag & Anthem</label>
-            <label class="opt-label" onclick="selectOpt(this,'q23-group'); playQ17IlluminatiVideo()"><input type="radio" name="q23"/> 🌿 Protect the Environment</label>
-            <label class="opt-label" onclick="selectOpt(this,'q23-group'); playQ17IlluminatiVideo()"><input type="radio" name="q23"/> 🤝 Promote Harmony & Brotherhood</label>
-            <label class="opt-label" onclick="selectOpt(this,'q23-group'); playQ17IlluminatiVideo()"><input type="radio" name="q23"/> 🗳️ Participate in Democracy (Vote!)</label>
-            <label class="opt-label" onclick="selectOpt(this,'q23-group'); playQ17IlluminatiVideo()"><input type="radio" name="q23"/> 💰 Pay your taxes (RIP salaries)</label>
-            <label class="opt-label" onclick="selectOpt(this,'q23-group'); playQ17IlluminatiVideo()"><input type="radio" name="q23"/> 🔬 Develop scientific temper (Delete WhatsApp fwds!)</label>
+            <label class="opt-label" onclick="selectOpt(this,'q23-group')"><input type="radio" name="q23"/> 🇮🇳 Respect the National Flag & Anthem</label>
+            <label class="opt-label" onclick="selectOpt(this,'q23-group')"><input type="radio" name="q23"/> 🌿 Protect the Environment</label>
+            <label class="opt-label" onclick="selectOpt(this,'q23-group')"><input type="radio" name="q23"/> 🤝 Promote Harmony & Brotherhood</label>
+            <label class="opt-label" onclick="selectOpt(this,'q23-group')"><input type="radio" name="q23"/> 🗳️ Participate in Democracy (Vote!)</label>
+            <label class="opt-label" onclick="selectOpt(this,'q23-group')"><input type="radio" name="q23"/> 💰 Pay your taxes (RIP salaries)</label>
+            <label class="opt-label" onclick="selectOpt(this,'q23-group')"><input type="radio" name="q23"/> 🔬 Develop scientific temper (Delete WhatsApp fwds!)</label>
           </div>
         </div>
 
@@ -1058,7 +1055,7 @@ body.overlay-lock {
             <label class="opt-label" onclick="selectOpt(this,'q24-group')"><input type="radio" name="q24"/> 🏟️ Stand up & sing with full josh!</label>
             <label class="opt-label" onclick="selectOpt(this,'q24-group')"><input type="radio" name="q24"/> 😐 Stand silently (too shy to sing)</label>
             <label class="opt-label" onclick="selectOpt(this,'q24-group')"><input type="radio" name="q24"/> 🎬 Grudgingly stand at cinema</label>
-            <label class="opt-label" onclick="selectOpt(this,'q24-group'); playQ18OptionFourAudio()"><input type="radio" name="q24"/> 😅 I quietly sneak out before it plays (Abdul💣)</label>
+            <label class="opt-label" onclick="selectOpt(this,'q24-group')"><input type="radio" name="q24"/> 😅 I quietly sneak out before it plays</label>
           </div>
         </div>
 
@@ -1067,7 +1064,7 @@ body.overlay-lock {
         <div class="q-group">
           <label class="q-label">
             <span class="q-num">19</span> One Fundamental Duty says "protect public property." When was the last time you saw someone NOT littering?
-            <span class="q-funny" style="color:#c0392b;">Dark Mode 🌑: Aaj mai jab raste me aa raha tha toh mujhe topi dikhi.</span>
+            <span class="q-funny" style="color:#c0392b;">Red Mode 🔴: Aaj mai jab raste me aa raha tha toh mujhe Vimal dikha.</span>
           </label>
           <div class="yn-wrap">
             <button class="yn-btn yes" onclick="selectYN(this,'q25','Today')">😇 Today! I threw nothing!</button>
@@ -1083,7 +1080,7 @@ body.overlay-lock {
           <label class="q-label">
             <span class="q-num">20</span> Write one duty you think Indians perform BEST and one they perform WORST:
           </label>
-          <textarea class="q-textarea" id="q26" placeholder="Best duty: We're great at ___&#10;Worst duty: We completely ignore ___&#10;(Be honest! The constitution won't get offended... probably 😂)"></textarea>
+          <textarea class="q-textarea" id="q26" placeholder="Best duty: We're great at ___&#10;Worst duty: We completely ignore ___&#10;(Be honest! The constitution won't get offended... 😂)"></textarea>
         </div>
 
         <div class="nav-buttons">
@@ -1104,7 +1101,7 @@ body.overlay-lock {
           </div>
         </div>
         <p class="q-funny" style="margin-left:0; margin-bottom:18px;">
-          (The Constitution promises equality. "The Biggest Joke" 😬)
+          (The Constitution promises equality. 😬)
         </p>
 
         <div class="q-group">
@@ -1114,7 +1111,7 @@ body.overlay-lock {
           </label>
           <div class="yn-wrap">
             <button class="yn-btn yes" onclick="selectYN(this,'q27','Yes - Absolutely')">🌟 Yes, we've come far!</button>
-            <button class="yn-btn no" onclick="selectYN(this,'q27','No - Far from it'); playQ21OptionTwoAudio()">😡 JEE ke baare me ek sabd nhi sununga</button>
+            <button class="yn-btn no" onclick="selectYN(this,'q27','No - Far from it')">😐 No, not really</button>
             <button class="yn-btn maybe" onclick="selectYN(this,'q27','Getting better')">🚀 Getting better, slowly</button>
           </div>
           <input type="hidden" id="q27" value=""/>
@@ -1125,10 +1122,9 @@ body.overlay-lock {
         <div class="q-group">
           <label class="q-label">
             <span class="q-num">22</span> Have you personally seen or experienced discrimination based on caste, gender, color or religion?
-            <span class="q-funny" style="color:#c0392b;">Dark Mode 🌑: Tu bas ek baar answer de aur dekh</span>
           </label>
           <div class="yn-wrap">
-            <button class="yn-btn yes" onclick="handleQ28Selection(this,'Yes - Experienced')">😔 Yes, mujhe KALUA bulate hai</button>
+            <button class="yn-btn yes" onclick="handleQ28Selection(this,'Yes - Experienced')">😔 Yes, they harass me</button>
             <button class="yn-btn maybe" onclick="handleQ28Selection(this,'Witnessed')">👀 Witnessed it happen to others</button>
             <button class="yn-btn no" onclick="handleQ28Selection(this,'No')">🙏 No, thankfully not</button>
           </div>
@@ -1145,7 +1141,7 @@ body.overlay-lock {
           <div class="yn-wrap">
             <button class="yn-btn yes" onclick="selectYN(this,'q29','Yes')">⚖️ Yes, fair for all</button>
             <button class="yn-btn no" onclick="selectYN(this,'q29','No')">❌ Depends on your connections</button>
-            <button class="yn-btn maybe" onclick="selectYN(this,'q29','Sometimes')">😡 Ha essay hee toh bas likhna hai</button>
+            <button class="yn-btn maybe" onclick="selectYN(this,'q29','Sometimes')">🙊 Mai nhi bataunga</button>
           </div>
           <input type="hidden" id="q29" value=""/>
         </div>
@@ -1158,9 +1154,9 @@ body.overlay-lock {
             <span class="q-funny">Tera response hamare paas stored rahega toh soch-samajh ke boliyo jo bolna hai 🐦‍🔥</span>
           </label>
           <div class="options-grid">
-            <label class="opt-label" onclick="selectOpt(this,'q30-group'); playQ24TopThreeOptionsAudio()"><input type="radio" name="q30"/> 👍 Necessary and should continue</label>
-            <label class="opt-label" onclick="selectOpt(this,'q30-group'); playQ24TopThreeOptionsAudio()"><input type="radio" name="q30"/> 🔄 Should be reviewed/reformed</label>
-            <label class="opt-label" onclick="selectOpt(this,'q30-group'); playQ24TopThreeOptionsAudio()"><input type="radio" name="q30"/> ❓ I need to read more before judging</label>
+            <label class="opt-label" onclick="selectOpt(this,'q30-group')"><input type="radio" name="q30"/> 👍 Necessary and should continue</label>
+            <label class="opt-label" onclick="selectOpt(this,'q30-group')"><input type="radio" name="q30"/> 🔄 Should be reviewed/reformed</label>
+            <label class="opt-label" onclick="selectOpt(this,'q30-group')"><input type="radio" name="q30"/> ❓ I need to read more before judging</label>
             <label class="opt-label" onclick="selectOpt(this,'q30-group')"><input type="radio" name="q30"/> 🤐 No opinion (wisest answer!)</label>
           </div>
         </div>
@@ -1197,7 +1193,7 @@ body.overlay-lock {
           <span class="page-icon">💭</span>
           <div class="page-title-wrap">
             <div class="page-subtitle">Section 5</div>
-            <h2>Aapki Rai — Your Opinion Matters because we aren't your Principal! (Mostly)</h2>
+            <h2>Aapki Rai — Your Opinion Matters!</h2>
           </div>
         </div>
         <p class="q-funny" style="margin-left:0; margin-bottom:18px;">
@@ -1222,7 +1218,7 @@ body.overlay-lock {
         <div class="q-group">
           <label class="q-label">
             <span class="q-num">27</span> Should constitutional values be taught MORE in schools and colleges?
-            <span class="q-funny">Spoiler: We spent 6 chapters on Mughal architecture (Jai Oggy) and 0.5 pages on Fundamental Rights 😭</span>
+            <span class="q-funny">Spoiler: We spent 6 chapters on British Imperialism and 0.5 pages on Fundamental Rights 😭</span>
           </label>
           <div class="yn-wrap">
             <button class="yn-btn yes" onclick="selectYN(this,'q38','Yes - Definitely')">🏫 Absolutely! Make it mandatory!</button>
@@ -1270,13 +1266,12 @@ body.overlay-lock {
 
         <div class="q-group">
           <label class="q-label">
-            <span class="q-num">30</span> Do you think "Jai Shree Ram 🚩" vs "Jai Hind" controversy showed how constitution gets politicized? <span class="dark-joke-badge">🌑 Deep Thought</span>
-            <span class="q-funny">Both are constitutionally fine. But you'd never know that from your news channel. 📺</span>
+            <span class="q-num">30</span> Should people be free to express patriotic or religious slogans in public spaces?
           </label>
           <div class="yn-wrap">
-            <button class="yn-btn yes" onclick="selectYN(this,'q41','Yes - It gets too political'); playQ30OptionOneTwoAudio()">🚩 Jai Shree Ram</button>
-            <button class="yn-btn no" onclick="selectYN(this,'q41','No - Its normal debate'); playQ30OptionOneTwoAudio()">🤝 No, healthy debate is fine</button>
-            <a class="yn-btn maybe" href="samvidhan-message.html" onclick="selectYN(this,'q41','No Comment'); stopQ30OptionOneTwoMedia()">🤐 Mai Jai Hind nhi bolunga</a>
+            <button class="yn-btn yes" onclick="selectYN(this,'q41','Yes - It gets too political')">👍 Yes</button>
+            <button class="yn-btn no" onclick="selectYN(this,'q41','No - Its normal debate')">⚠️ Only in certain situations</button>
+            <button class="yn-btn maybe" onclick="selectYN(this,'q41','No Comment')">🤐 Not sure</a>
           </div>
           <input type="hidden" id="q41" value=""/>
         </div>
@@ -1299,8 +1294,7 @@ body.overlay-lock {
           </div>
         </div>
         <p class="q-funny" style="margin-left:0; margin-bottom:18px;">
-          (Tum yaha tak tike ho? 🎉 Almost done. Don't close the tab now — that would be unconstitutional (असंवैधानिक). Probably.)
-        </p>
+          (Tum yaha tak tike ho? 🎉 Almost done. Don't close the tab now — that would be unconstitutional (असंवैधानिक).
 
         <div class="q-group">
           <label class="q-label">
@@ -1332,7 +1326,7 @@ body.overlay-lock {
 
         <div class="q-group">
           <label class="q-label">
-            <span class="q-num">33</span> Your biggest takeaway from this survey / आप हमसे अलग क्या करेंगे? 🤔:
+            <span class="q-num">33</span> Your biggest takeaway from this survey / अगर आप हमारी जगह होते, तो क्या अलग करते? 🤔:
           </label>
           <textarea class="q-textarea" id="q44" placeholder="I didn't know that... / From now on I will... / The Constitution basically says..."></textarea>
         </div>
@@ -1412,8 +1406,8 @@ body.overlay-lock {
   <div class="hindi-msg">
     <strong>बहुत बढ़िया! 🙏</strong><br/>
     आपने यह सर्वे पूरा किया — इसका मतलब आप सच में देश के बारे में सोचते हैं।<br/>
-    वरना लोग तो बीच में ही छोड़ देते, जैसा उसने छोड़ा था। 😂<br/><br/>
-    <strong>संविधान कहता है:</strong> "हम भारत के लोग..." — और आप उन लोगों में से हैं जो सुनते हैं!<br/><br/>
+    वरना लोग तो बीच में ही छोड़ देते| 😂<br/><br/>
+    <strong>संविधान कहता है:</strong> "We the people of India..." — और आप उन लोगों में से हैं जो सुनते हैं!<br/><br/>
     अब जाइए — <em>पहले Constitution पढ़िए, फिर Instagram!</em> 📜❤️
   </div>
   <div style="font-size: 1.8rem; margin: 16px 0;">
@@ -1423,7 +1417,7 @@ body.overlay-lock {
     <span class="confetti-emoji" style="animation-delay:0.8s">🎊</span>
   </div>
   <p style="color: var(--navy); font-weight:700; font-size:1rem;">
-    <em>"Saare Jahan Se Accha, Hindustan ke saath Pakistan bhi Hamara"</em><br/>
+    <em>"Saare Jahan Se Accha, Hindustan Hamara Hamara, Saare Jahan Se Accha"</em><br/>
     — And now you actually know why! 🌟
   </p>
   <div class="ty-footer">
@@ -2032,7 +2026,6 @@ function runQ28FutureEffect() {
 
 function handleQ28Selection(el, val) {
   selectYN(el, 'q28', val);
-  runQ28FutureEffect();
 }
 
 function selectScale(el, scaleId, val) {
